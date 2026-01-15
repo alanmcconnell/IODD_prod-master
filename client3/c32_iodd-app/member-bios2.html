@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Bios - IODD</title>
+    <link rel="stylesheet" href="footer-styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo { font-size: 12px; font-weight: bold; }
+        
+        .back-btn {
+            padding: 4px 8px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 20px 40px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+        }
+        
+        .page-title h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page-title p {
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .page-title h1 {
+                font-size: 1.6rem;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 1.4rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        .content-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            height: 70vh;
+        }
+        
+        @media (max-width: 768px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+        }
+        
+        .members-list {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+        
+        .member-item {
+            padding: 2px 4px;
+            margin-bottom: 1px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .member-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .member-item.selected {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .member-name {
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        
+        .bio-display {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+        
+        .bio-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .bio-content {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+            white-space: pre-line;
+        }
+        
+        .no-selection {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            margin-top: 50px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .error {
+            color: #dc3545;
+            padding: 20px;
+            background: rgba(248, 215, 218, 0.9);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">IODD</div>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-title">
+            <h1>Member Biographies</h1>
+            <p>Professional profiles of our database experts</p>
+        </div>
+        
+        <div id="data-display">
+            <div class="loading">Loading member biographies...</div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links"></div>
+    </footer>
+
+    <script src="_config.js"></script>                                                <!-- .(51013.01.14 RAM New config) -->
+    <script src="member-bios2-client.js"></script>
+    <script src="footer-content.js"></script>
+</body>
+</html>

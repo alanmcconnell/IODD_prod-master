@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Profile Skills</title>
+    <link rel="stylesheet" href="footer-styles.css">
+    <!-- Include a rich text editor (Upgraded to v2 to remove deprecation warnings) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .main-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .members-panel {
+            width: 400px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .members-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+        }
+        
+        .members-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .member-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .member-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .member-item.selected {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .member-name {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .loading-members {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        .container {
+            flex: 1;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        #editor {
+            height: 300px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .cancel-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background-color: #da190b;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .error {
+            color: #f44336;
+            background-color: #ffebee;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #f44336;
+        }
+
+        .success {
+            color: #4CAF50;
+            background-color: #e8f5e8;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        #memberNo {
+            display: none;
+        }
+
+        .form-group:has(#memberNo) {
+            display: none;
+        }
+
+        .debug-info {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+            padding: 5px;
+            background-color: #f9f9f9;
+            border-radius: 3px;
+            display: none;
+        }
+
+        .show-debug .debug-info {
+            display: block;
+        }
+
+        .debug-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #333;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button class="debug-toggle" onclick="toggleDebug()">Debug</button>
+    
+    <div class="main-container">
+        <div class="members-panel">
+            <div class="members-header">Members List</div>
+            <div class="members-list" id="membersList">
+                <div class="loading-members">Loading members...</div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <h1>Member Profile Skills Editor</h1>
+            
+            <div id="message"></div>
+        
+        <div class="debug-info" id="debugInfo">
+            <strong>Debug Info:</strong><br>
+            Member ID: <span id="debugMemberId">Not loaded</span><br>
+            Data loaded: <span id="debugDataLoaded">No</span><br>
+            Original skills length: <span id="debugOriginalSkills">0</span>
+        </div>
+        
+        <form id="memberForm">
+            <div class="form-group">
+                <label for="memberNo">Member Number:</label>
+                <input type="text" id="memberNo" name="memberNo" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="editor">Skills:</label>
+                <div id="editor"></div>
+            </div>
+            
+            <div class="button-group">
+                <button type="button" id="submitBtn" class="submit-btn">Save</button>
+                <button type="button" id="cancelBtn" class="cancel-btn">Cancel</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleDebug() {
+            document.body.classList.toggle('show-debug');
+        }
+
+        function updateDebugInfo(memberId, dataLoaded, originalSkillsLength) {
+            document.getElementById('debugMemberId').textContent = memberId || 'Not available';
+            document.getElementById('debugDataLoaded').textContent = dataLoaded ? 'Yes' : 'No';
+            document.getElementById('debugOriginalSkills').textContent = originalSkillsLength || 0;
+        }
+    </script>
+    <script src="_config.js"></script>                                                <!-- .(51013.01.26 RAM New config) -->
+    <script src="lib/JWT-Tokens-Client.js"></script>
+    <script src="lib/global-auth.js"></script>
+    <script src="lib/role-permissions.js"></script>
+    <script src="member-profile-skills.js"></script>
+</body>
+</html>

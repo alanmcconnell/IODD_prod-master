@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Profile</title>
+    <link rel="stylesheet" href="footer-styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .user-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            color: white;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .user-email {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .menu-container {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 10px;
+        }
+
+        .main-menu-item {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 4px solid transparent;
+        }
+
+        .main-menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid rgba(255,255,255,0.5);
+        }
+
+        .main-menu-item.active {
+            background: rgba(255,255,255,0.2);
+            border-left: 4px solid #fff;
+        }
+
+        .main-menu-item.expandable::after {
+            content: '▼';
+            position: absolute;
+            right: 20px;
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .main-menu-item.expandable.collapsed::after {
+            transform: rotate(-90deg);
+        }
+
+        .sub-menu {
+            background: rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .sub-menu.collapsed {
+            max-height: 0;
+        }
+
+        .sub-menu.expanded {
+            max-height: 200px;
+        }
+
+        .sub-menu-item {
+            display: block;
+            width: 100%;
+            padding: 12px 40px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .sub-menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid rgba(255,255,255,0.3);
+            padding-left: 45px;
+        }
+
+        .sub-menu-item.active {
+            background: rgba(255,255,255,0.15);
+            border-left: 4px solid #fff;
+            color: white;
+            font-weight: 500;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fafafa;
+        }
+
+        .content-header {
+            padding: 20px 30px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .content-title {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+
+        .content-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .content-body {
+            flex: 1;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .welcome-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: white;
+            border-radius: 8px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: #fdf2f2;
+            border-radius: 8px;
+            color: #e74c3c;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 240px;
+            }
+            
+            .content-header {
+                padding: 15px 20px;
+            }
+            
+            .content-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="user-header">
+                <div class="user-name" id="userName">Loading...</div>
+                <div class="user-email" id="userEmail"></div>
+            </div>
+            <div class="menu-container">
+            <div class="menu-section">
+                <button class="main-menu-item expandable" data-main="member-profile">
+                    Member Profile
+                </button>
+                <div class="sub-menu collapsed">
+                    <button class="sub-menu-item" data-section="your-information" data-url="member-profile-info.html">
+                        Member Information
+                    </button>
+                    <button class="sub-menu-item" data-section="bio" data-url="member-profile-bio.html">
+                        Bio
+                    </button>
+                    <button class="sub-menu-item" data-section="skills" data-url="member-profile-skills.html">
+                        Skills
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <button class="main-menu-item expandable" data-main="projects">
+                    Projects
+                </button>
+                <div class="sub-menu collapsed">
+                    <button class="sub-menu-item" data-section="project-list" data-url="member-profile-project.html">
+                        Project Information
+                    </button>
+                    <button class="sub-menu-item" data-section="Project Members" data-url="member-profile-project-members.html">
+                        Project Members
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <button class="main-menu-item expandable" data-main="communications">
+                    Communications
+                </button>
+                <div class="sub-menu collapsed">
+                    <button class="sub-menu-item" data-section="contact-emails" data-url="member-profile-contactq.html">
+                        IODD Contact email requests
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <button class="main-menu-item expandable" data-main="admin-tools">
+                    Administration Tools
+                </button>
+                <div class="sub-menu collapsed">
+                    <button class="sub-menu-item" data-section="Application-roles" data-url="admin-roles.html">
+                        Application Roles
+                    </button>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <button class="main-menu-item" onclick="window.location.href='index.html'">
+                    IODD Home
+                </button>
+            </div>
+            </div>
+        </nav>
+
+        <main class="content">
+            <div class="content-header">
+                <h1 class="content-title" id="contentTitle">Welcome</h1>
+                <p class="content-subtitle" id="contentSubtitle">Select a menu item to get started</p>
+            </div>
+            
+            <div class="content-body">
+                <div class="welcome-message" id="contentArea">
+                    <div>
+                        <h3>Welcome to Your Member Profile</h3>
+                        <p>Please select a menu item from the left sidebar to view content.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="_config.js"></script>                                                <!-- .(51013.01.10 RAM New config) -->
+    <script src="lib/global-token-functions.js"></script>
+    <script src="lib/JWT-Tokens-Client.js"></script>
+    <script src="lib/acm_Prompts.js"></script>
+    <script src="member-profile.js"></script>
+</body>
+</html>

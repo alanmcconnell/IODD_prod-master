@@ -1,0 +1,154 @@
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*-----------------------------------------
+The @media MAX-width query properties
+***** IPHONE
+/*If Device Width is <= to 440px Then...*/
+
+/*=========================================*/
+  @media only screen
+  and (max-width: 440px)
+{
+
+  
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*Hamburger menu - controls menu vert spacing*/
+.MenuWrap .Menu > div > div > ul > li {
+    padding: 22px;
+  }
+/*-----------------------------------------
+The .Section1 properites
+------------------------------------------*/
+.Section1 {
+  width: 100%;
+  height: 360px;
+  top: 0px; /*<---ADD to adjust the top position*/
+  overflow-y: scroll;
+  border: 0px black solid;
+}
+.Section1Title {
+  font-size: 22px;
+  color:black;
+  text-shadow: 0.5px 0.5px 0px #FFFFFF;
+  padding: 100px 0px 0px 0px;
+  text-align: center;
+}
+/* .Section1Title::first-letter {
+  font-size: 150%;
+} */
+.Section1Paragraph {
+  font-size: 18px;
+  color:black;
+  text-shadow: 0.5px 0.5px 0px #FFFFFF;
+  margin: 10px -1px 0px 10px;
+}
+/* Section1 END ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+
+/*-----------------------------------------
+The .Section2 properites
+------------------------------------------*/
+.Section2 {
+  background: var(--Section2BGColor);
+  width: 100%;
+  height: 400px;
+  top: 0px; /*<---ADD to adjust the top position*/
+  overflow-y: auto;
+}
+.Section2Title {
+  text-align: left;
+  font-size: 22px;
+  color:black;
+  text-shadow: 0.5px 0.5px 0px #FFFFFF;
+  padding: 10px 0px 20px 20px;
+}
+/* .Section2Title::first-letter {
+  font-size: 150%;
+} */
+.Section2Paragraph {
+  padding-top: 0px;
+}
+.Links {
+  width: 150%;
+  border: 0px solid #000;
+  margin: 0 0;
+  font-family: var(--GlobalFontFamily);
+}  
+  .Links ol {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      width: 100%;
+      /*padding-left: 10px;*/
+      /*padding-top: -10px;*/
+      /*padding-bottom: 10px;*/
+      margin: -20px 0px 10px -20px;  
+    }
+  .Links ol li {
+    font-size: 18px;
+    font-family: var(--GlobalFontFamily);
+    padding-top: 5px;
+    }
+  .Links ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0px 0px 5px -30px;
+    /*column-rule: dotted 1px #333;*/
+    /*column-width: auto;*/
+    border-bottom: dotted 1px black;
+    }
+
+  .Links ul li {
+    list-style: none;
+    display: inline-block;
+    width: calc(100% / 2);
+    height: 15px;
+    text-align: left;
+    font-family: var(--GlobalFontFamily);
+    font-size: 18px;
+    margin: 10px -40px 10px 0px;
+  }
+
+  .Links ul li:before { 
+    font-family: var(--CalloutIconFontFamily);
+    font-weight: 600;
+    /* content: var(--CalloutIconCheck); checkbox  */
+    padding: 0px 0px 0px 0px;
+  }
+  .Links ul li a {
+    color: blue;
+    font-family: var(--GlobalFontFamily);
+  }
+  .Links ul a:hover,
+  .Links ul a:active {
+    font-family: var(--GlobalFontFamily);
+    color: blue;
+    } 
+/* Section2 END ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+
+
+.Footer {
+    display: none;
+    height: 30px;
+    width: 440px;
+    opacity: 0.82;
+    border-top: dotted 2px #696969;
+  }
+  .FooterNavList {
+    justify-content: center;
+    padding-left: 55px;
+    margin: 5px;
+  }
+  .FooterNavListItem  {
+    padding: 0px 0px 10px 0px;
+  }
+    .FooterNavListItem a {
+      color: #505050;
+  }
+}    
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member List - IODD</title>
+    <link rel="stylesheet" href="footer-styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .page-title h1 {
+                font-size: 1.6rem;
+            }
+            
+            .data-container {
+                padding: 15px;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 1.4rem;
+            }
+            
+            .data-container {
+                padding: 10px;
+                border-radius: 10px;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 8px 6px;
+                font-size: 0.9rem;
+            }
+            
+            .footer-links {
+                gap: 15px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo { 
+            font-size: 12px; 
+            font-weight: bold; 
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 14px;
+            }
+        }
+        
+        .back-btn {
+            padding: 4px 8px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .main-content {
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+        }
+        
+        .page-title h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page-title p {
+            font-size: 0.9rem;
+        }
+        
+        .data-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        
+        /* Make table responsive */
+        @media (max-width: 768px) {
+            .data-container {
+                overflow-x: auto;
+            }
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .data-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .data-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        .error {
+            color: #dc3545;
+            padding: 20px;
+            background: #f8d7da;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+
+        
+        .globe-icon {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        
+        .globe-icon:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">IODD</div>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-title">
+            <h1>Member List</h1>
+            <p>Complete member information directory</p>
+        </div>
+        
+        <div class="data-container">
+            <div id="data-display">
+                <div class="loading">Connecting to server...</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links"></div>
+    </footer>
+
+    <script src="_config.js?v=2"></script>                                                <!-- .(51013.01.8 RAM New config) -->
+    <script src="member-list-client.js?v=2"></script>
+    <script src="footer-content.js?v=2"></script>
+</body>
+</html>

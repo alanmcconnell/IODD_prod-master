@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <title></title>
+        <link rel="shortcut icon" href="../assets/icons/favicon.ico">    <!-- .(30403.05.1 RAM CHange)-->
+        <link rel="stylesheet"    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+
+    </head>
+    <body>
+   
+    <!--  Header -->
+    <div class="Header">
+        <div class="MenuWrap">
+            <input title="Menu" type="checkbox" class="Toggler">
+            <div class="Hamburger" style="background: rgb(198 210 222);"><div></div></div>
+            <div class="Menu">
+                <div>
+                    <div>
+                        <ul class="MenuList">
+                            <li class="MenuListItem"     id="MenuBlank"              ></li>
+                            <li class="MenuListItem"     id="HomeLink"               ><a   href="index.html" >Home</a></li>
+                            <li class="MenuListItemLine" id="HomeLinkLine"           ><hr></li>
+                            <li class="MenuListItem"     id="MembersLink"            ><a   href="members/members.html">Members Listing</a></li>
+                            <li class="MenuListItem"     id="ContactLink"            ><a   href="#">Contact Sheet</a></li>
+                            <li class="MenuListItem"     id="BiosLink"               ><a   href="members-bios/members-bios.html">Bios</a></li>
+                            <li class="MenuListItemLine" id="MembersLinkLine"        ><hr color="blue"></li>
+                            <li class="MenuListItem"     id="MembersProjectsLink"    ><a   href="members-projects/members-projects.html">Members' Projects</a></li>
+                            <li class="MenuListItem"     id="ProjectDetailsLink"     ><a   href="projects/projects.html">Project Details</a></li>
+                            <li class="MenuListItemLine" id="MembersProjectsLinkLine"><hr color="blue"></li>                            
+                            <li class="MenuListItem"     id="GuruLink"               ><a   href="#">Guru Mail</a></li>
+                            <li class="MenuListItem"     id="SupportLink"            ><a   href="#">Support</a></li>
+                            <li class="MenuListItem"     id="LicenseLink"            ><a   href="#">License</a></li>
+                            <li class="MenuListItemLine" id="MtgLocLinkLine"         ><hr></li>
+                            <li class="MenuListItem"     id="MtgLocLink"             ><a   href="meetings/meetings.html">Meeting Notification</a></li>
+                            <li class="MenuListItemLine" id="LoginLinkLine"          ><hr></li>
+                            <li class="MenuListItem"     id="LoginLink"              ><a   href="login/login.html">Login</a></li>
+                            <li class="MenuListItem"     id="MenuBlank"              ></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--
+        <div class="Logo">
+            <span class="LogoText">iodd</span>
+            <span class="device-text"></span>
+        </div>
+        <div class="HeaderSpacer"></div>
+-->
+
+        <div>
+            <div class="new-div">
+                <table class="Header-nav-table" valign="center">
+                    <tbody class="HeaderNavList"></tbody>
+                    <tr class="Header-table-tr">
+                        <td class="Logo">
+                            <span class="LogoText">iodd</span>
+                            <span class="DeviceText"></span>
+                            
+                        </td>
+                        <td class="HeaderSpacer"></td>
+                        <td class="DropdownMenu">
+                            <!--include using jQuery-->
+                            <div id="inc-dropdown"></div>
+                            <script> 
+                            //  $("#inc-dropdown").load( "includes/inc-dropdown-home.html" );   //#.(30401.02.9)
+                                setHTML( 'inc-dropdown', 'includes/inc-dropdown-home.html' );   // .(30401.02.9)
+                            </script> 
+                        </td>
+                        <td class="HeaderNavListItemCTA"><a href="meetings/meetings.html" title="CLICK For The Next Meeting Information">Meeting <span class="next-meeting-date"></span></a></td>
+                        
+                        <td class="HeaderNavListItemInits"         ><a href="login/login.html"      title="Edit Profile"></a></td>   <!-- .(30329.07.01 RAM Add it back) -->
+                        <td class="HeaderNavListItemLogin"         ><a href="login/login.html" data-title="Log In"      ></a></td>   <!-- .(30329.07.02) -->
+                   <!-- <td class="HeaderNavListItemLogin" id="id2"><a href="login/login.html" class="ToolTip"><span class="ToolTipHide"></span></a></td>  -->
+                   <!-- <td class="LoginTD"><a href="login/login.html" title="Log In"><span id="log"></span></a></td> -->            <!--#.(30329.07.02) --> 
+
+                        <td class="HeaderTrailingSpacer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>            
+        </div>
+    </div>
+    <!-- END  Header -->
+
+<!--<script src="assets/js/header.js"></script> -->    
+    </body>
+</html>

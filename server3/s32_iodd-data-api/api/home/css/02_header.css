@@ -1,0 +1,600 @@
+
+.Header {
+    background-color: var(--HeaderFooterBGColor);
+    top: 0;
+    width: 900px;
+    height: 70px;
+    position: fixed;
+    z-index: 100;
+    max-width: var(--GlobalMaxWidth);
+}
+.LogoText { 
+    position: relative;
+    z-index: 1;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: var(--GlobalIODDFontSize);
+    font-weight: 600;
+    color: white;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 3px black;
+    margin: 0px 0px 0px 20px;
+}
+.LogoText a { 
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: var(--GlobalIODDFontSize);
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 3px black;
+    margin: 0px 0px 0px 0px;
+}
+.DeviceText::after{
+    content: "\ [big screen]"
+}
+.DeviceText {
+    position: fixed;
+    z-index: 0;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: var(--GlobalFontFamily);
+    color: black;
+    padding: 50px 0px 0px 0px;
+}
+.Header-nav-table {
+    width: 100%;
+    align-items: center;
+}
+td.Logo {
+    width: 30%;
+}
+td.HeaderSpacer {
+    width: 35%;
+}
+td.DropdownMenu {
+    width: 10%;
+    text-align: right;
+    display: flex;
+}
+td.HeaderNavListItemCTA {
+    width: 20%;
+}
+td.HeaderNavListItemLogin {
+    display: flex;
+    width: 5%;
+}
+td.HeaderTrailingSpacer {
+    width: 1%;
+}
+/* LOGIN - LOGOUT DISPLAY ATTRIBUTES*/
+/*---------------------------------*/
+/* td.HeaderNavListItemInits {
+    display: none;
+    width: 5%;
+}
+td.HeaderNavListItemLogin {
+    display: flex;
+    width: 5%;
+}
+#ContactAll {
+    display: flex;
+    font-size: 18px ;
+}
+.fa-file-text:before {
+    content: "\f15c";
+    font-size: 18px;
+} */
+/*---------------------------------*/
+/*END LOGIN - LOGOUT DISPLAY ATTRIBUTES */
+
+.HeaderNavListItemCTA {
+    text-align: center;
+}
+.HeaderNavListItemCTA a {
+    font-family: var(--GlobalFontFamily);
+    color: white;
+    font-size: var(--MenuCTAFontSize);
+    font-weight: 600;
+    background: blue ;
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 8px;
+}
+.HeaderNavListItemCTA a:hover,
+.HeaderNavListItemCTA a:active {
+    color: blue;
+    color: #C0C0C0; 
+}
+.next-meeting-date {
+    font-family: var(--GlobalFontFamily);
+    font-size: var(--MenuCTAFontSize);
+}
+/*------------------------------------------*/
+.HeaderNavListItemCTA {
+    animation     : wiggle 400ms 2s 8 ease-out none;
+}
+/*-----------------------------------------
+The @keyframes wiggle properties
+------------------------------------------*/
+@keyframes wiggle {
+      0% { transform: rotateZ(  0deg ); }
+     50% { transform: rotateZ(-5deg ); }
+    100% { transform: rotateZ( 5deg ); }
+}
+/*------------------------------------------*/
+
+/* .HeaderNavListItemInits{
+    display: flex;
+    padding: 10px 20px 0px 0px;
+}
+.HeaderNavListItemInits a {
+    padding: var(--InitsFontPadding);
+    background-color: var(--InitsBGColor);
+    border: var(--InitsBorderColor) var(--InitsBorderWeight) solid;
+    border-radius: 50%;
+    color: var(--InitsFontColor);
+    font-size: var(--InitsFontSize);
+    font-weight: var(--InitsFontWeight);
+    font-family: var(--GlobalFontFamily);
+    text-decoration: none;
+} */
+.HeaderNavListItemLogin{
+    display: flex;
+    padding: 10px 20px 0px 0px;
+}
+/* .HeaderNavListItemLogin a { */
+    /* padding: var(--InitsFontPadding); */
+    /* background-color: blue; var(--PlatinumColor); */
+    /* border: #5A5A5A var(--InitsBorderWeight) solid; */
+    /* border-radius: 50%; */
+    /* color: darkblue; */
+    /* font-size: var(--InitsFontSize); */
+    /* font-weight: var(--InitsFontWeight); */
+    /* font-family: var(--GlobalFontFamily); */
+    /* text-decoration: none; */
+/* } */
+
+/*========================================*/
+/* Dropdown Menu Styles */
+.dropbtn {
+    background-color: blue; /*var(--HeaderFooterBGColor);*/
+    color: white;
+    border-radius: 8px;
+    padding: 6px;
+    font-size: 10px;
+    /* font-size: var(--MenuCTAFontSize); */
+    font-family: var(--GlobalFontFamily);
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    top: 25px;
+}
+  
+.dropdown {
+    margin-top: 12px;
+    position: relative;
+    display: flex;
+}
+div.dropdown-content {
+    top: 28px;
+    /* ^^ to move the menu Up and Down */
+    left: -20px;
+    /* ^^ to move the menu left:0 or right:0 */
+}  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: aliceblue;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.dropdown-content a {
+    color: black;
+    padding: 10px 16px;
+    text-decoration: none;
+    text-align: left;
+    display: block;
+    font-size: 16px;
+    font-family: var(--GlobalFontFamily);
+    font-weight: 500;
+}
+  
+.dropdown-content a:hover {
+    background-color: rgb(66, 66, 245);
+    color: white;
+}  
+.dropdown:hover .dropdown-content {
+    display: block;
+} 
+.dropdown:hover .dropbtn {
+    /* background-color: blue; */
+    /* color: #C0C0C0; */
+}
+
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*MEDIA - IPAD LANDSCAPE*/
+@media only screen
+and (min-width: 950px)
+and (max-width: 1000px)
+{
+    .Logo {
+        padding-left: 10px;
+        padding-bottom: -30px;
+    }
+    .DeviceText::after{
+        content: "\ [big screen]"
+    }
+    .DeviceText {
+        font-size: 10px;
+        font-weight: 600;
+        font-family: var(--GlobalFontFamily);
+        color: black;
+        padding: 50px 0px 0px 0px;
+    }
+    .MenuWrap {  /*hamburger*/
+        display: none;
+        margin: 0px 0px 0px 30px
+    }
+    .MenuWrap .Menu > div {
+        /*move menu around*/
+        justify-content: left; /*was center*/
+        padding-left: 300px; /*was deleted*/
+        margin-top: -400px; /*was deleted*/
+        /*end of move around*/
+    }
+    .MenuWrap .Menu > div > div > ul > li > a {
+        font-size: 1rem;
+        font-weight: 600;
+        color: blue;
+        padding: 0px;
+    }
+    .MenuList {
+        border: blue 1px solid;
+    }
+    .MenuListItem {
+        margin: -35px;
+    }
+    .HeaderNavListItemBack {
+        display: none;
+    }
+    .HeaderNavListItemHome {
+        display: none;
+    }
+    .HeaderNavListItemHome a,
+    .HeaderNavListItemMtgLoc a {
+        text-decoration: none;
+        color: blue;
+        font-family: var(--GlobalFontFamily);
+        font-size: larger;
+        font-weight: 700;
+    }
+    .HeaderNavListItemHome a:hover,
+    .HeaderNavListItemHome a:active,
+    .HeaderNavListItemMtgLoc a:hover,
+    .HeaderNavListItemMtgLoc a:active {
+        color: cornflowerblue;
+    }
+    .HeaderNavListItemAvatar {
+        display: flex;
+        padding: 10px 0px 0px 0px;
+    }
+    .PencilImage {
+        display: none;
+    }
+
+}
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*MEDIA - Tablet PORTRAIT*/
+@media only screen
+and (min-width: 741px)
+and (max-width: 949px) 
+{ 
+        .Header {
+            height: 70px;
+            width: 100%;
+            border-bottom: 0px solid #000;
+        }
+        .Logo {
+            padding-left: 0px;
+            padding-bottom: -30px;
+        }
+        .DeviceText::after{
+            content: "\ [tablet]"
+        }
+        .DeviceText {
+            font-size: 10px;
+            font-weight: 600;
+            font-family: var(--GlobalFontFamily);
+            color: black;
+            padding: 50px 0px 0px 0px;
+        }
+        td.Logo {
+            width: 30%;
+        }
+        td.HeaderSpacer {
+            width: 15%;
+        }
+        td.DropdownMenu {
+            width: 10%;
+            text-align: right;
+        }
+        td.HeaderNavListItemCTA {
+            width: 15%;
+        }
+        /* td.HeaderNavListItemInits {
+            display: none;
+            width: 5%;
+        }
+        td.HeaderNavListItemLogin {
+            display: flex;
+            width: 5%;
+        } */
+        .Header {
+            max-width: var(--GlobalMaxWidth);
+        }
+        .Header-nav-table {
+            align-items: center;
+            width: 130%;
+        }    
+        .HeaderSpacer {
+            width: 100px;
+        }
+        .HeaderNavListItemHome,
+        .HeaderNavListItemBack,
+        .HeaderNavListItemMtgLoc {
+            display: none;
+        }
+        .HeaderNavListItemAvatar {
+            display: flex;
+            padding: 0px 100px 0px 0px;
+        }
+        .HeaderNavListItemInits{
+            display: flex;
+            padding: 10px 100px 0px 0px;
+        }
+        .PencilImage {
+            display: none;
+        }
+
+        .HeaderNavListItemCTA {
+            text-align: center;
+            width: 200px;
+            padding: 0px 0px 0px 0px;
+        }
+        .HeaderNavListItemCTA a {
+            padding: 6px 6px;
+            font-size: 14px;
+        }    
+        .MenuWrap {  /*hamburger*/
+            display: none;
+            margin: 0px 0px 0px 30px
+        }
+        .MenuWrap .Menu > div {
+            /*move menu around*/
+            justify-content: left; /*was center*/
+            padding-left: 300px; /*was deleted*/
+            margin-top: -400px; /*was deleted*/
+            /*end of move around*/
+        }
+        .MenuWrap .Menu > div > div > ul > li > a {
+            font-size: 1rem;
+            font-weight: 600;
+            color: blue;
+            padding: 0px;
+        }
+        .MenuList {
+            border: blue 0px solid;
+        }
+        .MenuListItem {
+            margin: -29px;
+        }
+        /*
+        .MenuListItemFooter {
+            display: none;
+        }
+        */
+}
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*MEDIA - IPHONE LANDSCAPE*/
+/*=========================================*/
+/*=========================================*/
+/* The Header/Logo/Navigation properites   */
+/*-----------------------------------------*/  
+@media only screen
+and (min-width: 440px)
+and (max-width: 740px) 
+{ 
+            .Logo {
+                width: 250px;
+                padding: 1px 0px 0px 0px; 
+                text-align: left;
+            }
+            .DeviceText::after{
+                content: "\ [mobile]"
+            }
+            .DeviceText {
+                font-size: 10px;
+                font-weight: 600;
+                font-family: var(--GlobalFontFamily);
+                color: black;
+                padding: 45px 0px 0px 0px;
+            }
+            .Header {
+                height: 70px;
+                width: 100%;
+                /* border: 2px black solid; */
+            } 
+            .Header-nav-table {
+            align-items: center;
+            width: 100%;
+            }
+            td.Logo {
+                width: 20%;
+            }
+            td.HeaderSpacer {
+                width: 40%;
+            }
+            .dropbtn {
+                font-size: 12px;
+            }
+            .dropdown-content a {
+                padding: 7px 12px;
+            }    
+            td.DropdownMenu {
+                display: flex;
+                width: 10%;
+                text-align: right;
+            }
+            td.HeaderNavListItemCTA {
+                width: 50%;
+                text-align: center;
+            }
+            /* td.HeaderNavListItemInits {
+                display: none;
+                width: 10%;
+            } */
+            td.HeaderNavListItemLogin {
+                display: flex;
+                width: 5%;
+            }    
+            .HeaderNavList {
+                font-size: 8px;
+            }
+            .PencilImage {
+                width: 0px;
+                display: none;
+            }
+            .MenuWrap {  /*hamburger*/
+                display: none;
+                margin-top: 0px;
+                margin-left: 0px;
+            }
+            .MenuWrap .Menu > div {
+                /*move menu around*/
+                justify-content: left; /*was center*/
+                padding-left: 220px; /*was deleted*/
+                margin-top: -50px; /*was deleted*/
+                /*end of move around*/
+            }
+            .MenuWrap .Menu > div > div > ul > li > a {
+                font-size: 1rem;
+                font-weight: 600;
+                color: blue;
+                padding: 0px;
+            }
+            .MenuList {
+                border: blue 1px solid;
+            }
+            .MenuListItem {
+                margin: -30px;
+            }
+}
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*MEDIA - IPHONE PORTRAIT*/
+@media only screen
+and (max-width: 440px)
+  {
+  /*--*/
+                .Header {
+                    width: 440px;
+                    height: 75px
+                }
+                .Header-nav-table {
+                    width: 90%;
+                }    
+                td.Logo {
+                    width: 20%;
+                }
+                td.HeaderSpacer {
+                    width: 0%;
+                }
+                td.DropdownMenu {
+                    display: none;
+                    width: 0%;
+                    text-align: right;
+                }
+                td.HeaderNavListItemCTA {
+                    width: 80%;
+                    text-align: left;
+                }
+                /* td.HeaderNavListItemInits {
+                    display: none;
+                    width: 5%;
+                } */
+                td.HeaderNavListItemLogin {
+                    display: none;
+                    width: 5%;
+                }        
+                .DropdownMenu {
+                    display: none;
+                }    
+                
+                td.HeaderNavListItemLogin {
+                    display: none;
+                    width: 5%;
+                }                
+                
+                .HeaderNavListItem {
+                    list-style: none;
+                    display: inline-block;
+                }
+                .Logo {
+                    width: 110px;
+                    display: flex;
+                    padding: 0px 0px 20px 35px;
+                }
+                .DeviceText::after{
+                    content: "\ [mobile]"
+                }
+                .DeviceText {
+                    font-size: 10px;
+                    font-weight: 600;
+                    font-family: var(--GlobalFontFamily);
+                    color: black;
+                    padding: 50px 0px 0px 90px;
+                }
+                .HeaderNavListItemCTA {
+                    display: flex;
+                    text-align: center;
+                    width: 100px;
+                    margin: 0px 0px 0px 40px;
+                }
+                .next-meeting-date,
+                .HeaderNavListItemCTA a {
+                    font-size: 13px;
+                    padding: 6px;
+                }
+                .MenuWrap {  /*hamburger*/
+                    display: flex;
+                    margin-top: 0px;
+                }
+                .MenuWrap .Menu > div {
+                    /*move menu around*/
+                    justify-content: left; /*was center*/
+                    padding-left: 120px; /*was deleted*/
+                    margin-top: -100px; /*was deleted*/
+                    /*end of move around*/
+                }
+                .MenuWrap .Menu > div > div > ul > li > a {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    color: blue;
+                    padding: 0px;
+                }
+                .MenuList {
+                    border: blue 1px solid;
+                }
+                .MenuListItem  {
+                    margin: -35px;
+                } 
+/*--*/          
+}

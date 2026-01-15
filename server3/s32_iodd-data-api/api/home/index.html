@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="https://www.w3schools.com/lib/w3.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+	<title>Home</title>
+	<link rel="shortcut icon" href="favicon.png">
+	<link rel="stylesheet"    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+
+	<!--BEGINNING OF STYLE SHEETS (CSS)-->
+		<link rel="stylesheet"    href="css/00_global_variables.css">
+		<link rel="stylesheet"    href="css/01_hamburger.css">
+		<link rel="stylesheet"    href="css/02_header.css">
+		<link rel="stylesheet"    href="css/03_footer.css">
+		<link rel="stylesheet"    href="css/04_index.css">
+    <!--RESPONSIVE STYLE SHEETS (CSS)-->
+		<link rel="stylesheet"    href="css/05_resp_GT0950-bigScreen.css">
+		<link rel="stylesheet"    href="css/06_resp_741-950-tabletPortrait.css">
+		<link rel="stylesheet"    href="css/07_resp_440-740-mobileLandscape.css">
+		<link rel="stylesheet"    href="css/08_resp_LT0440-mobilePortrait.css">
+		<link rel="stylesheet"    href="css/09_final.css">
+
+<!--
+	<link rel="stylesheet"    href="css/06_resp_1900-3000-desktop.css">
+	<link rel="stylesheet"    href="css/07_resp_1100-1900-laptop.css">
+	<link rel="stylesheet"    href="css/08_resp_950-1100-tabletLandscape.css">
+-->
+<script>
+ async  function  setHTML( aDivID, aFile ) {                                            // .(30401.02.1 Beg RAM Add function)
+        var aPath     =  window.location.href.replace( /[^\/]+$/, '')
+    //                   console.log( `${aPath}/includes/inc-header-home.html` ) 
+        var response  =  await fetch( `${aPath}${aFile}` );
+        var aHTML     =  await response.text()
+        var pDiv      =  $( `#${aDivID}` ) 
+            pDiv.html(   aHTML )
+            sayMsg(     `setHTML[2]     Included '${aFile}'`, nSay2)                            
+        }  
+</script>
+</head>
+<body>
+<script>var aName = "Home"</script>	
+<!--  Container DIV -->
+<div class="container">
+    <!--  Header -->
+	<style>
+		#MenuBlank {display:block;}
+		#HomeLink {display:none;}
+		#HomeLinkLine {display:none;}
+		#MembersLink {display:block}
+		#ContactLink a {color:grey}
+		#BiosLink a {color:blue}
+		#MembersLinkLine {display:block}
+		#MembersProjectsLink {display:block}
+		#ProjectDetailsLink a {color:blue;}
+		#MembersProjectsLinkLine {display:block}
+		#GuruLink a {color:grey}
+		#SupportLink a {color:grey}
+		#LicenseLink a {color:grey;}
+		#MtgLocLinkLine {display:block;}
+		#MtgLocLink a {display:block}
+		#LoginLinkLine {display:block;}
+		#LoginLink {display:block}
+	    #MenuBlank {display:block}
+		.HeaderNavListItemHome {display:none}
+	</style>
+
+    <!--include using jQuery-->
+		<div id="inc-header"></div>
+		<script> 
+//      $("#inc-header").load(  "includes/inc-header-home.html" );
+		setHTML( "#inc-header", "includes/inc-header-home.html" );
+		</script> 
+    <!-- END  Header -->
+
+
+    <!--  Section1 -->
+		<!--include using jQuery-->
+		<div id="inc-section1"></div>
+		<script> 
+			$("#inc-section1").load("includes/inc-section1.html");
+		</script> 
+    <!-- END  Section1 -->
+
+    <!--  Section2 -->
+    <div    class="Section2">
+		<div class="Section2Title">links</div>
+			<div  class="Section2Paragraph">
+				<div class="Links">
+					<ol>
+						<li>Members <a href="#"><img class="PencilImageMembers" src="assets/images/pencilDots.gif"></a></li>
+						<ul>
+							<li><i class="fa fa-address-book"></i>&nbsp;&nbsp;<a href="members/members.html">Member Listing</a>&nbsp;<img class="PencilImage" src="assets/images/pencilDots.gif"></li> <!-- .(30214.02.1 RAM Was href="../m") -->
+							<li id="BiosLink"><i class="fa fa-graduation-cap"></i>&nbsp;&nbsp;<a href="members-bios/members-bios.html">Bios</a>&nbsp;<img class="PencilImage" src="assets/images/pencilDots.gif"></li>
+							<li id="ContactLink"><i class="fa fa-file-text"></i>&nbsp;&nbsp;<a href="#">Contact Sheet</a>&nbsp;<img class="PencilImage" src="assets/images/pencilDots.gif"></li>
+							
+						</ul>
+						<li>Projects <a href="#"><img class="PencilImageProjectss" src="assets/images/pencilDots.gif"></a></li>
+						<ul>
+							<li><i class="fa fa-address-card"></i>&nbsp;&nbsp;<a href="members-projects/members-projects.html">Project Listing</a></li> <!-- .(30214.02.2 RAM Was href="../m") -->
+							<li id="ProjectDetailsLink"><i class="fa fa-list-ol"></i>&nbsp;&nbsp;<a href="projects/projects.html">Project Details</a>&nbsp;<img class="PencilImage" src="assets/images/pencilDots.gif"></li> <!-- .(30214.02.2 RAM Was href="../p") -->
+						</ul>
+						<li>Out of the Box</li>
+						<ul>
+							<li id="OthelloLink"  ><i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;<a href="othello/index.html" target="_blank">Play Othello</a></li>
+							<li id="IllusionsLink"><i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;<a href="illusions/index.html" target="_blank">Illusions</a></li>
+							<li id="WonderLink"   ><i class="fa fa-fw fa-link"></i>&nbsp;&nbsp;<a href="wonder/index.html" target="_blank">Wonder</a></li>
+						</ul>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- END  Section2 -->
+
+    <!--  Footer -->
+        <!--include using jQuery-->
+        <div id="inc-footer"></div>
+        <script> 
+            $("#inc-footer").load("includes/inc-footer.html");
+        </script> 
+    <!-- END  Footer -->
+</div> 
+<!--END Container DIV-->
+
+
+<script>
+    w3.includeHTML();
+</script> 
+
+
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IODD - Members Only</title>
+    <link rel="stylesheet" href="footer-styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .login-container {
+                width: 90%;
+                max-width: 400px;
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            .form-group label {
+                font-size: 14px;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+            }
+        }
+        
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .db-term {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: bold;
+            pointer-events: none;
+            animation: float 20s infinite linear;
+            white-space: nowrap;
+            font-family: 'Courier New', monospace;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        .size-small { font-size: 12px; }
+        .size-medium { font-size: 16px; }
+        .size-large { font-size: 20px; }
+        .size-xlarge { font-size: 24px; }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo { 
+            font-size: 12px; 
+            font-weight: bold; 
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: #007bff;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .login-header h2 {
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background: #0069d9;
+        }
+        
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            z-index: 1000;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container" id="background"></div>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">IODD</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Members Only Access</h2>
+                <p>Please enter your credentials to continue</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <!-- <label for="username">User Name</label> -->
+                    <input type="text" id="username" class="form-control" placeholder="Enter you email address." required>
+                </div>
+                <div class="form-group">
+                    <!-- <label for="password">Password</label> -->
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <div id="message" class="message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links"></div>
+    </footer>
+
+    <script src="_config.js"></script>                                                <!-- .(51013.01.30 RAM New config) -->
+    <script src="footer-content.js"></script>
+    <script>
+        // Create floating database terms in the background
+        const terms = [
+            'SQL', 'NoSQL', 'MongoDB', 'PostgreSQL', 'MySQL', 'Oracle', 
+            'Database', 'Query', 'Index', 'Schema', 'Table', 'View', 
+            'Stored Procedure', 'Trigger', 'Function', 'Normalization',
+            'ACID', 'Transaction', 'Primary Key', 'Foreign Key', 'JOIN',
+            'Aggregate', 'GROUP BY', 'HAVING', 'WHERE', 'SELECT', 'INSERT',
+            'UPDATE', 'DELETE', 'MERGE', 'UNION', 'INTERSECT', 'EXCEPT'
+        ];
+        
+        const background = document.getElementById('background');
+        
+        for (let i = 0; i < 30; i++) {
+            const term = document.createElement('div');
+            term.className = 'db-term';
+            term.textContent = terms[Math.floor(Math.random() * terms.length)];
+            
+            // Random positioning
+            term.style.left = `${Math.random() * 100}%`;
+            term.style.top = `${Math.random() * 100}%`;
+            
+            // Random animation duration and delay
+            const duration = 15 + Math.random() * 30;
+            const delay = Math.random() * 15;
+            term.style.animation = `float ${duration}s ${delay}s infinite linear`;
+            
+            // Random size
+            const sizes = ['size-small', 'size-medium', 'size-large', 'size-xlarge'];
+            term.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
+            
+            background.appendChild(term);
+        }
+    </script>
+    <script src="MembersOnly-client.js"></script>
+</body>
+</html>

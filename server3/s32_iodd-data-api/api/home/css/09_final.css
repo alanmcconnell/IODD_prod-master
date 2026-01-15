@@ -1,0 +1,9 @@
+.PencilImage {
+    display: none;
+}
+
+#BiosLink,
+#ProjectDetailsLink,
+#WonderLink {
+    height: 30px;
+}

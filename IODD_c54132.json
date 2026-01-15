@@ -1,0 +1,13 @@
+/* IODD_/dev01-alan/IODD_c54132.json */
+{
+  "apps":
+   [ { "cwd"        :   "/webs/IODD"
+     , "name"       :   "IODD_c54132"
+     , "script"     :   "live-server"
+     , "args"       :   "client3/c32_iodd-app --port=54332 --host=0.0.0.0"
+     , "watch"      : [ "client3/c32_iodd-app/" ]
+     , "out_file"   :   "/webs/._/LOGs/IODD/2512.Dec/IODD_c54132_out.log"
+     , "error_file" :   "/webs/._/LOGs/IODD/2512.Dec/IODD_c54132_err.log"
+        }
+     ]
+   }

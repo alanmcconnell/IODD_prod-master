@@ -1,0 +1,198 @@
+
+client3/c32_iodd-app/contact-email.js:
+    2:             const API_BASE_URL = 'http://localhost:3004/api';
+    2:             const API_BASE_URL = window.fvaRs.SERVER_API_URL;
+
+client3/c32_iodd-app/about-client.js:
+    4:         this.baseUrl = 'http://localhost:3004/api';
+    4:         this.baseUrl = window.fvaRs.SERVER_API_URL;
+
+   55:             const response = await fetch(`${this.baseUrl}/members`);
+
+   97:             const response = await fetch(`${this.baseUrl}/member-count`);
+
+  110:             const response = await fetch(`${this.baseUrl}/query`, {
+
+  136:             const membersResponse = await fetch(`${this.baseUrl}/members`);
+
+  160:             const response = await fetch(`${this.baseUrl}/project-count`);
+
+  173:          /* const response = await fetch(`${this.baseUrl}/query`, {
+
+  174:          // const response = await fetch(`${this.baseUrl}/tableorview`, {
+
+  200:             const projectsResponse = await fetch(`${this.baseUrl}/projects`);
+
+  221:             const response = await fetch(`${this.baseUrl}/industries`, {
+
+  421:             const sqlResponse = await fetch(`${client.baseUrl}/query`, {
+
+  435:             const projectsResponse = await fetch(`${client.baseUrl}/members`);
+
+  484:             const response = await fetch(`${client.baseUrl}/members`);
+
+client3/c32_iodd-app/admin-roles.js:
+    8:         this.baseUrl = window.location.protocol + '//' + window.location.hostname + ':3004';
+    8:         this.baseUrl = window.fvaRs.SERVER_API_URL;
+
+   25:             const response = await fetch('http://localhost:54032/api2/member/info', {
+   25:             const response = await fetch(`${window.fvaRs.AUTH_API_URL}/member/info`, {
+
+  120:             const response = await fetch(`${this.baseUrl}/api/roles`, {
+  120:             const response = await fetch(`${this.baseUrl}/roles`, {
+
+  240:             const response = await fetch('http://localhost:3004/api/role', {
+  240:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/role`, {
+
+  302:             const checkResponse = await fetch(`http://localhost:3004/api/role-usage?id=${this.selectedRoleId}`, {
+  302:             const checkResponse = await fetch(`${window.fvaRs.SERVER_API_URL}/role-usage?id=${this.selectedRoleId}`, {
+
+  334:             const response = await fetch(`http://localhost:3004/api/role?id=${this.selectedRoleId}`, {
+  334:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/role?id=${this.selectedRoleId}`, {
+
+client3/c32_iodd-app/index.html:
+  405:             fetch(`http://localhost:54032/api2/user_by_email?email=${encodeURIComponent(email)}`)
+  405:             fetch(`${window.fvaRs.AUTH_API_URL}/user_by_email?email=${encodeURIComponent(email)}`)
+
+  430:                         fetch(`http://localhost:54032/api2/webpage_roles_view`)
+  430:                         fetch(`${window.fvaRs.AUTH_API_URL}/webpage_roles_view`)
+
+client3/c32_iodd-app/auth-client.js:
+  10:         const response = await fetch('http://localhost:54032/api2/member/info', {
+  10:         const response = await fetch(`${window.fvaRs.AUTH_API_URL}/member/info`, {
+
+  63:         await fetch('http://localhost:54032/api2/auth/logout', {
+  63:         await fetch(`${window.fvaRs.AUTH_API_URL}/auth/logout`, {
+
+client3/c32_iodd-app/main.js:
+  4:         this.baseUrl = 'http://localhost:54032/api2';
+  4:         this.baseUrl = window.fvaRs.AUTH_API_URL;
+
+  9:             const response = await fetch(`${this.baseUrl}${endpoint}`);
+
+client3/c32_iodd-app/member-bios-client.js:
+  4:         this.baseUrl = 'http://localhost:3004/api';
+  4:         this.baseUrl = window.fvaRs.SERVER_API_URL;
+
+  9:             const response = await fetch(`${this.baseUrl}${endpoint}`);
+
+client3/c32_iodd-app/member-bios2-client.js:
+  4:         this.baseUrl = 'http://localhost:3004/api';
+  4:         this.baseUrl = window.fvaRs.SERVER_API_URL;
+
+  9:             const response = await fetch(`${this.baseUrl}${endpoint}`);
+
+client3/c32_iodd-app/member-list-client.js:
+  4:         this.baseUrl = 'http://localhost:3004/api';
+  4:         this.baseUrl = window.fvaRs.SERVER_API_URL;
+
+  9:             const response = await fetch(`${this.baseUrl}${endpoint}`);
+
+client3/c32_iodd-app/member-profile-bio.js:
+   53:             const response = await fetch('http://localhost:3004/api/list/members');
+   53:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/list/members`);
+
+  129:             const response = await fetch(`http://localhost:3004/api/members?id=${memberId}`, {
+  129:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/members?id=${memberId}`, {
+
+  217:             const response = await fetch('http://localhost:3004/api/member_bio', {
+  217:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member_bio`, {
+
+client3/c32_iodd-app/member-profile-client.js:  ???
+   29:             const response = await fetch(`http://localhost:3004/api/members?email=${encodeURIComponent(email)}`);
+   29:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/members?email=${encodeURIComponent(email)}`);
+
+  340:             const response = await fetch(`http://localhost:3004/api/members?id=${window.gMemberId}`);
+  340:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/members?id=${window.gMemberId}`);
+
+client3/c32_iodd-app/member-profile-info.js:
+   38:             const response = await fetch('http://localhost:3004/api/webpage_roles_view');
+   38:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/webpage_roles_view`);
+
+  110:             const response = await fetch('http://localhost:3004/api/list/members');
+  110:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/list/members`);
+
+  199:             const response = await fetch(`http://localhost:3004/api/members?id=${encodeURIComponent(memberId)}`, {
+  199:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/members?id=${encodeURIComponent(memberId)}`, {
+
+  334:             const response = await fetch('http://localhost:3004/api/member', {
+  334:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member`, {
+
+  415:             const response = await fetch('http://localhost:3004/api/member', {
+  415:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member`, {
+
+  561:             const response = await fetch(`http://localhost:3004/api/member?id=${this.selectedMemberId}`, {
+  561:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member?id=${this.selectedMemberId}`, {
+
+client3/c32_iodd-app/member-profile-project-members.js:
+   2: const API_BASE_URL = 'http://localhost:3004/api';
+   2: const API_BASE_URL = window.fvaRs.SERVER_API_URL;
+
+  30:         const response = await fetch('http://localhost:54032/api2/member/info', {
+  30:         const response = await fetch(`${window.fvaRs.AUTH_API_URL}/member/info`, {
+
+client3/c32_iodd-app/member-profile-project.js:
+   87:             const response = await fetch('http://localhost:3004/api/webpage_project_info_view', {
+   87:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/webpage_project_info_view`, {
+
+  163:             const response = await fetch(`http://localhost:3004/api/project?pid=${projectId}`, {
+  163:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/project?pid=${projectId}`, {
+
+  259:             const response = await fetch(`http://localhost:3004/api/projects/${this.selectedProject.ProjectID}`, {
+  259:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/projects/${this.selectedProject.ProjectID}`, {
+
+  310:             const url = 'http://localhost:3004/api/projects';
+  310:             const url = `${window.fvaRs.SERVER_API_URL}/projects`;
+
+client3/c32_iodd-app/member-profile-skills.js:
+   53:             const response = await fetch('http://localhost:3004/api/list/members');
+   53:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/list/members`);
+
+  154:             const response = await fetch(`http://localhost:3004/api/members?id=${memberId}`, {
+  154:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/members?id=${memberId}`, {
+
+  232:             console.log('Sending POST to: http://localhost:3004/api/member_skills');
+  232:             console.log(`Sending POST to: ${window.fvaRs.SERVER_API_URL}/member_skills`);
+
+  235:             const response = await fetch('http://localhost:3004/api/member_skills', {
+  235:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member_skills`, {
+
+client3/c32_iodd-app/member-skills-client.js:
+  4:         this.baseUrl = 'http://localhost:3004/api';
+  4:         this.baseUrl = window.fvaRs.SERVER_API_URL;
+
+  9:             const response = await fetch(`${this.baseUrl}${endpoint}`);
+
+client3/c32_iodd-app/MembersOnly-client.js:
+   3:         this.baseUrl = 'http://localhost:54032/api2'; // Assuming same base URL as other clients
+   3:         this.baseUrl = window.fvaRs.AUTH_API_URL;
+
+  10:         // const response = await fetch(`${this.baseUrl}/login`, {
+
+client3/c32_iodd-app/project-list-client.js:
+  4:         this.baseUrl = 'http://localhost:3004/api';
+  4:         this.baseUrl = window.fvaRs.SERVER_API_URL;
+
+  9:             const response = await fetch(`${this.baseUrl}${endpoint}`);
+
+client3/c32_iodd-app/project-members-client.js:
+    4:         const response = await fetch('http://localhost:3004/api/webpage_project_info_view');
+    4:         const response = await fetch(`${window.fvaRs.SERVER_API_URL}/webpage_project_info_view`);
+
+  140:         const response = await fetch(`http://localhost:3004/api/webpage_project_members_view?ProjectID=${projectId}`);
+  140:         const response = await fetch(`${window.fvaRs.SERVER_API_URL}/webpage_project_members_view?ProjectID=${projectId}`);
+
+lib/acm_NextID_client.js:
+  2:     fetch('http://localhost:54032/api2/nextid', {
+  2:     fetch(`${window.fvaRs.AUTH_API_URL}/nextid`, {
+
+lib/global-auth.js:
+   82:             const response = await fetch(`http://localhost:3004/api/user_by_email?email=${encodeURIComponent(email)}`);
+   82:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/user_by_email?email=${encodeURIComponent(email)}`);
+
+  111:             const response = await fetch(`http://localhost:3004/api/members?id=${memberId}`);
+  111:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/members?id=${memberId}`);
+
+  129:             const response = await fetch('http://localhost:3004/api/webpage_roles_view');
+  129:             const response = await fetch(`${window.fvaRs.SERVER_API_URL}/webpage_roles_view`);
+

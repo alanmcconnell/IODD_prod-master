@@ -1,0 +1,14 @@
+/* IODD_/dev01-alan/IODD_c54382.json */
+{
+  "apps":
+   [ { "cwd"        :   "/home/shared/repos/IODD_/dev01-alan"
+     , "name"       :   "IODD_s54382"
+     , "script"     :          "/root/.nvs/node/20.17.0/x64/bin/node"
+//   , "script"     :   "/users/robin/.nvs/node/20.19.4/arm64/bin/node"
+     , "args"       :   "server3/s32_iodd-data-api/server.mjs"
+     , "watch"      : [ "server3/s32_iodd-data-api/" ]
+     , "out_file"   :   "/home/shared/repos/IODD_/._/LOGs/2601.Jan/IODD_s54382_out.log"
+     , "error_file" :   "/home/shared/repos/IODD_/._/LOGs/2601.Jan/IODD_s54382_err.log"
+        }
+     ]
+   }

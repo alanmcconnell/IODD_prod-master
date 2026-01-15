@@ -1,0 +1,115 @@
+
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*-----------------------------------------
+The @media MAX-width query properties
+***** IPHONE - Landscape
+/*If Device Width 
+  is >= 441px AND 
+  <= 740px Then...*/
+
+/*=========================================*/
+@media only screen
+and (min-width: 441px)
+and (max-width: 740px) 
+{ 
+  /*Hamburger menu - controls menu vert spacing*/
+  .MenuWrap .Menu > div > div > ul > li {
+    padding: 17px;
+  }
+/*-----------------------------------------
+The .Section1 properites
+------------------------------------------*/
+.Section1 {
+  width: 100%;
+  max-width: 800px;
+  height: 300px;
+  position: relative;
+  color: var(--Section2-font-color);
+  top: 70px; /*<---ADD to adjust the top position*/
+  overflow-y: scroll;
+  border: solid 0px #242526;
+}
+.Section1Title {
+  text-align: left;
+  padding: 5px 0px 0px 40px;
+  font-size: 30px;
+}
+.Section1Paragraph {
+  font-size: 18px;
+  padding: 0px 0px 0px 10px;
+  text-align: center;
+}
+/* Section1 END ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+/*-----------------------------------------
+The .Section2 properites
+------------------------------------------*/
+.Section2 {
+  background: var(--Section2BGColor);
+  width: 100%;
+  height: 400px;
+  position: relative;
+  color: var(--Section2-font-color);
+  top: 70px; /*<---ADD to adjust the top position*/
+  overflow-y: scroll;
+  border: solid 0px #242526;
+  display: block;
+}
+.Section2Title {
+  text-align: left;
+  padding: 5px 0px 0px 40px;
+  font-size: 30px;
+}
+.Section2Paragraph {
+  padding-top: 0px;
+}
+.Section2Paragraph ul {
+  margin: 0px 0px 0px 0px;
+  font-family: var(--GlobalFontFamily);
+  font-size: 10px;
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+.MainOrderedList {
+  font-size: 80%;
+  margin: 0px 0px 0px 10px;
+  text-decoration: underline;
+}
+.MainOrderedListItem {
+  font-size: 10px;
+  padding: 0px 0px 15px 0px;
+}
+.MainOrderedListItem a {
+  font-size: 80%;
+}
+/* Section2 END ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+
+/*-----------------------------------------
+The .Footer properites
+------------------------------------------*/
+.Footer {
+  display: none;
+  height: 30px;
+  /* width: 440px; */
+  opacity: 0.82;
+  border-top: dotted 2px #696969;
+}
+.FooterNavList {
+  justify-content: center;
+  padding-left: 0px;
+  margin: 5px;
+  text-align: center;
+}
+.FooterNavListItem  {
+  padding: 0px 0px 10px 0px;
+}
+  .FooterNavListItem a {
+    color: #505050;
+}
+/* Footer END ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+
+}    
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/

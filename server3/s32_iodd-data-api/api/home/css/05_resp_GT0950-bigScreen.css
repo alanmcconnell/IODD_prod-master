@@ -1,0 +1,73 @@
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/* Responsive Code */  
+/*The @media MIN-width query properties
+***** For Big Screen > 951px
+/*If Device Width is >= 9510px Then...*/
+/*=========================================*/
+
+/*=========================================*/
+/*@media only screen 
+and (min-width: 950px) 
+*/
+@media only screen
+and (min-width: 951px)
+{
+
+.container {            /* custom element style */
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    max-height: 90%;
+    margin: auto;
+}
+.Logo {
+  padding: 0px 0px 0px 0px;
+}
+.MenuWrap {
+  display: none;
+  margin: 0px 0px 0px 30px;
+} 
+.MenuWrap .Menu > div {
+  /*move menu around*/
+  justify-content: left; /*was center*/
+  padding-left: 800px; /*was deleted*/
+  margin-top: -300px; /*was deleted*/
+  /*end of move around*/
+}
+.MenuWrap .Menu > div > div > ul > li > a {
+  font-size: 1rem;
+  font-weight: 600;
+  color: blue;
+  padding: 0px;
+}
+.MenuList {
+  border: blue 1px solid;
+}
+.MenuListItem {
+  margin: -35px;
+}
+.Section1 {
+    top: 70px;
+    height: 300px
+}
+.Section1Title {
+    padding-top: 20px;
+}
+.Section1Paragraph {
+    padding-top: 0px;
+    font-size: 150%;
+}
+.Section2 {
+  top: 70px
+}
+.Section2Paragraph a {
+  font-size: 100%;
+}
+.MainOrderedList {
+  font-size: 100%;
+}
+.FooterNavListItem a {
+  font-size: 100%;
+}
+} 

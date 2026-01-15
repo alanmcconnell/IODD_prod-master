@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IODD Sites Tester</title>
+    <style>
+        /* Base styles and layout */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            display: flex; /* Flexbox container for the two main areas */
+            overflow: hidden; /* Prevents body scroll */
+            box-sizing: border-box; /* Include padding/border in element's total width/height */
+            background-color: #666;
+        }
+
+        /* 1. Left Vertical Navigation Bar */
+        #sidebar {
+            width: 300px;     /* Initial width */
+            min-width: 150px; /* Minimum width for sidebar */
+            max-width: 50%;   /* Max width relative to viewport */
+            max-height: 950px;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            flex-shrink: 0;
+            overflow-y: auto; /* Allows vertical scrolling for links */
+            box-sizing: border-box;
+        }
+
+        #nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #nav-list li {
+            margin-bottom: 2px;
+            white-space: nowrap;
+        }
+
+        #nav-list a {
+            display: block;
+            padding: 5px 15px;
+            color: white;
+            text-decoration: none;
+            transition: padding-left 0.2s, background-color 0.2s;
+        }
+
+        #nav-list a:hover {
+            background-color: #555;
+            padding-left: 35px;
+        }
+
+        #nav-list .disabled { color: #AAAAAA; }
+
+        /* 2. Resizable Divider Bar */
+        #resizer {
+            width: 8px; /* Width of the draggable bar */
+            cursor: ew-resize; /* East-West resize cursor */
+            background-color: #666;
+            flex-shrink: 0; /* Prevents resizer from shrinking */
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        #resizer:hover {
+            background-color: #888;
+        }
+
+        /* 3. Right Wide Content Area */
+        #content-wrapper {
+            flex-grow: 1;              /* Takes up all remaining space */
+            height: 100%;
+            overflow: hidden;          /* Important: Prevents content-area from overflowing this wrapper */
+            box-sizing: border-box;
+            display: flex;             /* Use flex to align content-area horizontally */
+            justify-content: center;   /* Center the content-area if it's less than 1500px */
+        }
+
+        #content-area {
+            width: 100%;               /* Will take up 100% of its wrapper up to max-width */
+            max-width: 1280px;         /* Right pane fills browser up to 1280px */
+            height: 100%;
+         /* max-height: 1000px; */     /* Right pane fills browser up to 1000px */
+            background-color: #666; /* Just for visualization, was: f0f0f0 */
+            box-sizing: border-box;
+            overflow-x: auto;          /* Allows horizontal scrolling for content-frame */
+        }
+
+        #content-frame {
+            width: 1250px;             /* Inner iframe has a fixed wide width */
+         /* height: 950px; */
+            height: 100%;
+            max-height: 950px;         /* Right pane fills browser up to 1000px */
+            border: none;
+            box-sizing: border-box;
+            /* No overflow-x needed here, as it's within content-area which scrolls */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <ul id="nav-list">
+            <li><a href="https://iodd.com"                            class="disabled" target="content_frame">1. 54182-iodd.com (TDB)</a></li>
+            <li><a href="https://test.iodd.com"                       class="disabled" target="content_frame">2. 54282-test.iodd.com (TBD)</a></li>
+            <li><a href="https://iodd.com"                            class="enabled"  target="content_frame">3. 54382-iodd.com (dev01-alan)</a></li>
+            <li><a href="https://iodd.com/dev02-robin"                class="disabled" target="content_frame">4. 54482-iodd.com/dev02-robin</a></li>
+            <li><a href="https://iodd.com/dev03-alan"                 class="disabled" target="content_frame">5. 54582-iodd.com/dev03-alan</a></li>
+            <li><a href="https://iodd.com/test2-rick/index.html"      class="enabled"  target="content_frame">6. 54682-iodd.com/test2-rick</a></li>
+            <li><a href="https://iodd.com/dev01-login"                class="disabled" target="content_frame">7. 54782-iodd.com/dev01-login</a></li>
+            <li><a href="https://iodd.com/dev03-login"                class="disabled" target="content_frame">8. 54882-iodd.com/dev03-login</a></li>
+            <br>
+            <li><a href="http://localhost:54332"                      class="enabled"  target="content_frame">3. 54382-localhost.com</a></li>
+            <li><a href="http://10.0.0.37:54332"                      class="enabled"  target="content_frame">3. 54382-10.0.0.xx.com</a></li>
+            <li><a href="https://www.aiprivatesearch.com"             class="enabled"  target="content_frame">9. aiprivatesearch.com</a></li>
+            <li><a href="https://custmgr.aiprivatesearch.com"         class="enabled"  target="content_frame">10. custmgr.aiprivatesearch.com</a></li>
+        </ul>
+    </div>
+
+    <div id="resizer"></div>
+
+    <div id="content-wrapper">
+        <div id="content-area">
+            <iframe name="content_frame" id="content-frame" src="about:blank" title="Content Area">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        const resizer = document.getElementById('resizer');
+        const sidebar = document.getElementById('sidebar');
+        const body    = document.body;
+
+        let isResizing = false;
+
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            body.style.cursor        = 'ew-resize'; /* Change cursor for entire body during drag */
+            body.style.userSelect    = 'none';      /* Prevent text selection during drag */
+            body.style.pointerEvents = 'none';      /* Disable pointer events on other elements */
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+
+            // Calculate new width for sidebar
+            let newWidth = e.clientX;
+
+            // Apply min/max width constraints
+            const minSidebarWidth = parseInt(getComputedStyle(sidebar).minWidth);
+            const maxSidebarWidth = window.innerWidth * parseFloat(getComputedStyle(sidebar).maxWidth) / 100;
+
+            if (newWidth < minSidebarWidth) {
+                newWidth = minSidebarWidth;
+            } else if (newWidth > maxSidebarWidth) {
+                newWidth = maxSidebarWidth;
+            }
+            sidebar.style.width = newWidth + 'px';
+            });
+
+        document.querySelectorAll("#nav-list a").forEach( link => {
+            link.addEventListener("click", function (e) {
+            if (!e.target.className.includes('enabled')) {
+              // Prevent the default behavior of the link (open in a new tab)
+                 e.preventDefault();
+                 e.stopImmediatePropagation()
+                 alert( "Not implemented yet" )
+                 }  });
+            });
+
+/*      document.addEventListener('mouseup', (e) => {
+            alert(e.target.className)
+        if (!e.target.className.includes('enabled')) {
+            alert( "Not implemented yet" )
+            e.preventDefault()
+//          e.stopPropagation()
+            e.stopImmediatePropagation()
+            }
+        });
+*/
+        document.addEventListener('mouseup', (e) => {
+            isResizing = false;
+            body.style.cursor        = 'default';
+            body.style.userSelect    = 'auto';
+            body.style.pointerEvents = 'auto';
+            });
+
+    </script>
+
+</body>
+</html>

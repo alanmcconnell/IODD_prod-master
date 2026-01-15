@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IODD Member Registration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input[type="text"], input[type="email"], input[type="password"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+        
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 8px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .cancel-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #da190b;
+        }
+        
+        .required {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IODD Member Registration</h1>
+        
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="firstName">First Name <span class="required">*</span></label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="lastName">Last Name <span class="required">*</span></label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Username <span class="required">*</span></label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password <span class="required">*</span></label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="secureQuestion1">Security Question 1 <span class="required">*</span></label>
+                <input type="text" id="secureQuestion1" name="secureQuestion1" placeholder="Enter your security question" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="secureAnswer1">Security Answer 1 <span class="required">*</span></label>
+                <input type="text" id="secureAnswer1" name="secureAnswer1" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="secureQuestion2">Security Question 2 <span class="required">*</span></label>
+                <input type="text" id="secureQuestion2" name="secureQuestion2" placeholder="Enter your security question" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="secureAnswer2">Security Answer 2 <span class="required">*</span></label>
+                <input type="text" id="secureAnswer2" name="secureAnswer2" required>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" class="submit-btn" id="submitBtn">Save</button>
+                <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    
+    <script src="_config.js"></script>
+    <script src="register.js"></script>
+</body>
+</html>

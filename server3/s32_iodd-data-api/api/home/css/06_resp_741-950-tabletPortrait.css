@@ -1,0 +1,44 @@
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/* Responsive Code */  
+/*The @media MAX-width query properties
+***** For Ipad 1 (768x1024)
+/*If Device Width is Between 760 to 800px Then...*/
+/*=========================================*/
+
+/*=========================================*/
+/*@media only screen 
+and (max-width: 950px) 
+*/
+@media only screen
+and (min-width: 741px)
+and (max-width: 950px) 
+{
+
+.container {            /* custom element style */
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  max-height: 90%;
+  margin: auto;
+} 
+.Section1 {
+  top: 70px;
+  height: 400px
+}
+.Section1Paragraph {
+  font-size: 180%;
+}
+.Section2 {
+  top: 70px;
+}
+.Section2Paragraph a {
+  font-size: 100%;
+}
+.MainOrderedList {
+  font-size: 100%;
+}
+.FooterNavListItem a {
+  font-size: 100%;
+}
+} 

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Information</title>
+    <link rel="stylesheet" href="footer-styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .main-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .members-panel {
+            width: 400px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .members-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+        }
+        .members-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .member-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .member-item:hover {
+            background-color: #f8f9fa;
+        }
+        .member-item.selected {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+        .member-name {
+            font-weight: 500;
+            color: #333;
+        }
+        .loading-members {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+        .container {
+            flex: 1;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .add-btn {
+            background: #28a745;
+            color: white;
+        }
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+        .submit-btn {
+            background: #007bff;
+            color: white;
+        }
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .loading { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="members-panel">
+            <div class="members-header">Members List</div>
+            <div class="members-list" id="membersList">
+                <div class="loading-members">Loading members...</div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <h2 style="margin-bottom: 10px; font-size: 18px;">Member's Information</h2>
+            <div id="message" class="message"></div>
+            
+            <form id="memberForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone1">Phone 1</label>
+                    <input type="tel" id="phone1" name="phone1">
+                </div>
+                <div class="form-group">
+                    <label for="phone2">Phone 2</label>
+                    <input type="tel" id="phone2" name="phone2">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" id="company" name="company">
+            </div>
+            
+            <div class="form-group">
+                <label for="address1">Address 1</label>
+                <input type="text" id="address1" name="address1">
+            </div>
+            
+            <div class="form-group">
+                <label for="address2">Address 2</label>
+                <input type="text" id="address2" name="address2">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city">
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state">
+                </div>
+                <div class="form-group">
+                    <label for="zip">ZIP Code</label>
+                    <input type="text" id="zip" name="zip">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group" style="flex: 0.5;">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" name="country">
+                </div>
+                <div class="form-group" style="flex: 0.5;">
+                    <label for="applicationRole">Application Role</label>
+                    <select id="applicationRole" name="applicationRole">
+                        <option value="">Select Role...</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex: 0.4;">
+                    <label for="emailContactQuestion">Receive Question Email</label>
+                    <select id="emailContactQuestion" name="emailContactQuestion">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="website">Website</label>
+                <input type="url" id="website" name="website">
+            </div>
+            
+            <div class="buttons">
+                <button type="button" class="add-btn" id="addBtn">Add</button>
+                <button type="button" class="delete-btn" id="deleteBtn">Delete</button>
+                <button type="submit" class="submit-btn" id="submitBtn">Save</button>
+                <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="_config.js"></script>                                                <!-- .(51013.01.20 RAM New config) -->
+    <script src="lib/JWT-Tokens-Client.js"></script>
+    <script src="lib/global-token-functions.js"></script>
+    <script src="lib/global-auth.js"></script>
+    <script src="lib/role-permissions.js"></script>
+    <script src="lib/acm_NextID_client.js"></script>
+    <script src="lib/acm_Prompts.js"></script>
+    <script>
+        // JWT Security using global auth library
+        async function checkJWTAuth() {
+            // Initialize global auth
+            await GlobalAuth.initialize();
+            
+            let memberId, userRole;
+            try {
+                memberId = await acmJWTFetch('user_no');
+                console.log('JWT user_no:', memberId);
+            } catch (error) {
+                console.log('JWT user_no fetch failed:', error.message);
+                memberId = GlobalAuth.getMemberId();
+            }
+            
+            try {
+                userRole = await acmJWTFetch('user_role');
+                console.log('JWT user_role:', userRole);
+            } catch (error) {
+                console.log('JWT user_role fetch failed:', error.message);
+                userRole = GlobalAuth.getRole();
+            }
+            
+            console.log('Auth initialized - memberId:', memberId, 'userRole:', userRole);
+            return true;
+        }
+        
+        // Role-based permission check
+        async function checkPermissions() {
+            const allowedRoles = ['Admin', 'Editor', 'Member'];
+            let userRole;
+            try {
+                userRole = await acmJWTFetch('user_role');
+            } catch (error) {
+                console.log('Permission check - JWT fetch failed:', error.message);
+                userRole = null;
+            }
+            
+            console.log('Permission check - userRole:', userRole);
+            if (userRole && !allowedRoles.includes(userRole)) {
+                alert('Access denied. Insufficient permissions.');
+                return false;
+            }
+            return true;
+        }
+        
+        // Test functions for role permissions - make globally available
+        window.setTestRole = async function(role) {
+            try {
+                // First create a token if none exists
+                if (!localStorage.getItem('app_token')) {
+                    await acmJWTCreate({ user_role: role, user_no: '1' });
+                } else {
+                    await acmJWTPost('user_role', role);
+                }
+                console.log('Test role set to:', role);
+                if (window.RolePermissions) {
+                    await RolePermissions.applyRoleBasedUI();
+                } else {
+                    setTimeout(async () => await RolePermissions.applyRoleBasedUI(), 100);
+                }
+            } catch (error) {
+                console.error('Error setting test role:', error);
+            }
+        };
+        
+        // Clear JWT token - immediately available
+        window.clearJWT = function() {
+            localStorage.removeItem('app_token');
+            console.log('JWT token cleared');
+            window.location.reload();
+        };
+        
+        // Initialize security on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            const authResult = await checkJWTAuth();
+            if (!authResult || !checkPermissions()) {
+                return;
+            }
+            
+            // Role-based UI will be handled by member-profile-info.js
+            console.log('Auth check completed');
+            
+            // Verify RolePermissions is loaded
+            if (window.RolePermissions) {
+                console.log('RolePermissions class found');
+                // Apply initial role-based UI
+                setTimeout(async () => {
+                    try {
+                        await RolePermissions.applyRoleBasedUI();
+                        console.log('Initial role-based UI applied');
+                    } catch (error) {
+                        console.error('Error applying role-based UI:', error);
+                    }
+                }, 500);
+            } else {
+                console.error('RolePermissions class not found!');
+            }
+            
+            // Initialize with default role if no JWT exists
+            window.initTestRole = async function() {
+                try {
+                    const existingRole = await acmJWTFetch('user_role');
+                    if (!existingRole) {
+                        await window.setTestRole('Member');
+                    }
+                } catch (error) {
+                    console.log('No JWT token found, creating default Member role');
+                    await window.setTestRole('Member');
+                }
+            };
+            
+            // Auto-initialize role
+            setTimeout(() => window.initTestRole(), 1000);
+            
+            window.forceHideButtons = function() {
+                const addBtn = document.getElementById('addBtn');
+                const deleteBtn = document.getElementById('deleteBtn');
+                if (addBtn) addBtn.style.display = 'none';
+                if (deleteBtn) deleteBtn.style.display = 'none';
+                console.log('Buttons force hidden');
+            };
+            
+            window.showAllButtons = function() {
+                const addBtn = document.getElementById('addBtn');
+                const deleteBtn = document.getElementById('deleteBtn');
+                const submitBtn = document.getElementById('submitBtn');
+                const cancelBtn = document.getElementById('cancelBtn');
+                if (addBtn) addBtn.style.display = 'inline-block';
+                if (deleteBtn) deleteBtn.style.display = 'inline-block';
+                if (submitBtn) submitBtn.style.display = 'inline-block';
+                if (cancelBtn) cancelBtn.style.display = 'inline-block';
+                console.log('All buttons shown');
+            };
+            
+            window.testRoleUI = async function() {
+                console.log('Testing role-based UI...');
+                if (window.RolePermissions) {
+                    await RolePermissions.applyRoleBasedUI();
+                    const deleteBtn = document.getElementById('deleteBtn');
+                    console.log('Delete button display:', deleteBtn ? deleteBtn.style.display : 'not found');
+                } else {
+                    console.log('RolePermissions not available');
+                }
+            };
+            
+            // Simple test function using global variables (fallback when JWT fails)
+            window.setGlobalRole = function(role) {
+                window.gRole = role;
+                window.gMemberId = '108';
+                console.log('Global role set to:', role);
+                if (window.RolePermissions) {
+                    RolePermissions.applyRoleBasedUI();
+                } else {
+                    console.log('RolePermissions not available');
+                }
+            };
+            
+            // Clear JWT and set new role
+            window.clearAndSetRole = async function(role) {
+                // Clear existing JWT token
+                localStorage.removeItem('app_token');
+                console.log('JWT token cleared');
+                
+                // Create new token with specified role
+                try {
+                    await acmJWTCreate({ user_role: role, user_no: '108' });
+                    console.log('New JWT token created with role:', role);
+                    
+                    // Apply role-based UI
+                    if (window.RolePermissions) {
+                        await RolePermissions.applyRoleBasedUI();
+                    }
+                } catch (error) {
+                    console.error('Error creating new JWT token:', error);
+                    // Fallback to global variables
+                    window.setGlobalRole(role);
+                }
+            };
+            
+            // Force refresh JWT token from database
+            window.refreshJWTFromDB = function() {
+                localStorage.removeItem('app_token');
+                console.log('JWT token cleared - redirecting to credentials to get fresh token from database');
+                window.location.href = 'credentials.html';
+            };
+        });
+    </script>
+    <script src="member-profile-info.js"></script>
+</body>
+</html>

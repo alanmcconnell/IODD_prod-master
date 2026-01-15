@@ -1,0 +1,179 @@
+
+/* Basic Blocks Custom App */
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css');   /* .(21211.05.4) */
+
+
+/*------------------------------------------*/
+* {                   /* reset all style */
+    box-sizing          :  border-box;
+    padding             :  0;
+    margin              :  0;
+    font-family         :  "Arial, Helvetica, sans-serif";
+    font-size           :  14px;
+    }
+html {
+  max-width: var(--GlobalMaxWidth);
+  margin: auto;
+}
+body {
+  /* background-color: cornflowerblue; */
+  /* background-color: rgb(198 210 222); */
+  background-color: var(--BodyBGColor);
+}
+
+.container {            /* custom element style */
+    padding             :  0;
+    height              :  100vh;
+    max-height: 99.5%;
+  } 
+
+/*Next meeting date*/
+/*Change date in 00_global_variables.css*/
+.next-meeting-date::after {
+    content: var(--NextMeetingDate);
+  }
+
+/*-----------------------------------------
+The .Section1 properites
+------------------------------------------*/
+.Section1 {
+  background: url( '../assets/images/cloud2.jpg');
+  /*background-color: whitesmoke;*/
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 0px black solid;
+  width: 100%;
+  height: 250px;
+  position: relative;
+  top: 70px;
+  overflow: auto;
+}
+/*------------------------------------------*/
+.Section1Title {
+  font-size: 40px;
+  font-weight: bolder;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  text-shadow: 1px 1px 3px white;
+  text-align: left; 
+  padding-left: 25px; 
+  }
+/*------------------------------------------*/
+.Section1Title::first-letter {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 150%;
+}
+/*------------------------------------------*/
+.Section1Paragraph {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  font-weight: 300;
+  margin: 20px 20px 0px 40px;
+  font-size: 22px;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px white;
+  text-align: left !important;
+}
+/* Section-1 END ^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+/*-----------------------------------------
+The .Section2 properites
+------------------------------------------*/
+.Section2 {
+    background: var(--Section2BGColor);
+    width: 100%;
+    height: 75%;
+    position: relative;
+    color: black;
+    top: 70px; /*<---ADD to adjust the top position*/
+    overflow: auto;
+  }
+/*------------------------------------------*/
+.Section2Title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  font-weight: bolder;
+  color: black;
+  text-shadow: 2px 2px 3px gray;
+  text-align: left; 
+  padding-left: 22px; 
+}
+/*------------------------------------------*/
+.Section2Title::first-letter {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 150%;
+}
+/*------------------------------------------*/
+.Section2Paragraph {
+    margin: 0px 20px 0px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    scroll-behavior: auto;
+  }
+  .Links {
+    width: 100%;
+    border: 0px solid #000;
+    margin: 0 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }  
+    .Links ol {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        width: 100%;
+        padding-left: 30px;
+        padding-top: 10px;  
+      }
+    .Links ol li {
+      font-size: 18px;
+      font-family: Arial, Helvetica, sans-serif;
+      padding-top: 10px;
+      }
+    .Links ul {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-left: 20px;
+      /*column-rule: dotted 1px #333;*/
+      /*column-width: auto;*/
+      border-bottom: dotted 1px black;
+      }
+  
+    .Links ul li {
+      list-style: none;
+      display: inline-block;
+      width: calc(100% / 3);
+      height: 40px;
+      text-align: left;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      margin: 10px 0px 10px 0px;
+    }
+  
+    .Links ul li:before { 
+      font-family: var(--CalloutIconFontFamily);
+      font-weight: 600;
+      /* content: var(--CalloutIconCheck); checkbox  */
+      padding: 0px 5px 0px 0px;
+    }
+    .Links ul li a {
+      color: blue;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .Links ul a:hover,
+    .Links ul a:active {
+      font-family: Arial, Helvetica, sans-serif;
+      color: blue;
+      }
+    /*------------------------------------------*/
+
+
+  
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+
+
+/* END CSS*/

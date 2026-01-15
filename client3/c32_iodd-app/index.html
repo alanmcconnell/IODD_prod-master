@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IODD - Institute of Database Developers</title>
+    <link rel="stylesheet" href="footer-styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav {
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                width: 100%;
+                margin-top: 5px;
+                display: none;
+            }
+            
+            .dropdown:hover .dropdown-menu {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .data-table {
+                overflow-x: auto;
+                display: block;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-buttons {
+                flex-wrap: wrap;
+                gap: 5px;
+                justify-content: center;
+            }
+            
+            .btn {
+                width: auto;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+            
+            .main-content {
+                padding: 15px 10px;
+            }
+        }
+        
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .db-term {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: bold;
+            pointer-events: none;
+            animation: float 20s infinite linear;
+            white-space: nowrap;
+            font-family: 'Courier New', monospace;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        .size-small { font-size: 12px; }
+        .size-medium { font-size: 16px; }
+        .size-large { font-size: 20px; }
+        .size-xlarge { font-size: 24px; }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo { font-size: 12px; font-weight: bold; }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: #007bff;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            min-width: 150px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+            list-style: none;
+            padding: 0.5rem 0;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.8rem 1.2rem;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+            color: #007bff;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 4px 8px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: white;
+            margin: 60px 0;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .links-section h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .content-section {
+            margin-bottom: 40px;
+        }
+        
+        .content-section h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #444;
+        }
+        
+        .link-list {
+            list-style: none;
+            margin-left: 20px;
+        }
+        
+        .link-list li {
+            margin-bottom: 8px;
+            cursor: pointer;
+            color: #007bff;
+        }
+        
+        .link-list li:hover {
+            text-decoration: underline;
+        }
+        
+        .data-display {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .data-table th {
+            background: #e9ecef;
+            font-weight: bold;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .error {
+            color: #dc3545;
+            padding: 10px;
+            background: #f8d7da;
+            border-radius: 4px;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="background-container" id="background"></div>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo" id="logo">IODD (version: IODD_VERSION)</div>                    <!-- .(51013.05.1) -->
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <div class="dropdown">
+                    <a href="#">Members</a>
+                    <div class="dropdown-menu">
+                        <a href="member-list.html">Member List</a>
+                        <a href="member-bios.html">Members Bios</a>
+                        <a href="member-bios2.html">Member Bios 2</a>
+                        <a href="member-skills.html">Member Skills</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#">Projects</a>
+                    <div class="dropdown-menu">
+                        <a href="project-list.html">Project Information</a>
+                        <a href="project-members.html">Project Details</a>
+                    </div>
+                </div>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="contact-email.html">Contact</a>
+            </div>
+            <div class="nav-buttons">
+<!--            <button class="btn" onclick="window.location.href='http://localhost:3005/login_client.html?redirect_url=' + encodeURIComponent('http://localhost:5505/client3/c32_iodd-app/member-profile.html') + '&failure_url=' + encodeURIComponent('http://localhost:5505/client3/c32_iodd-app/index.html')">Login</button> --><!--#.(51013.01.2) --> 
+                <button id="loginBtn" class="btn">Login</button>                      <!-- .(51013.06.1 RAM No onclick) -->
+                <button class="btn" onclick="window.location.href='register.html'">Register</button>
+ <!--           <button class="btn" onclick="window.location.href='iodd-chat-line.html'">IODD AI Chat</button>      -->
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="hero-content">
+            <h1>Institute of Database Developers</h1>
+            <p>A professional community of database experts and developers</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links"></div>
+    </footer>
+
+    <script src="_config.js"></script>                                                <!-- .(51013.01.2 RAM New config) -->
+    <script src="lib/global-token-functions.js"></script>
+    <script src="lib/acm_Prompts.js"></script>
+    <script src="footer-content.js"></script>
+    <script>
+    //      alert("window.fvaR: " + JSON.stringify( window.fvaRs ));                    //#.(51013.01.2 RAM Set fvaRs) 
+        var LOGIN_PAGE     = window.fvaRs.LOGIN_PAGE                                    // .(51013.01.2 RAM Set fvaRs) 
+        var LOGIN_SUCCESS  = window.fvaRs.LOGIN_SUCCESS                                 // .(51013.01.2) 
+        var LOGIN_FAILURE  = window.fvaRs.LOGIN_FAILURE                                 // .(51013.01.2) 
+        // var IODD_VERSION   = window.fvaRs.IODD_VERSION                                  // .(51013.05.1 RAM Get Version) 
+        var IODD_VERSION = window.fvaRs.PROJECT_VERSION
+        var SECURE_APP_KEY = window.fvaRs.SECURE_APP_KEY                                // .(55301)
+
+        document.addEventListener('DOMContentLoaded', function() {                      // .(51013.06.2 RAM Moved from toip of <body> Beg)
+            
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                // Store app_key in localStorage for SecureAccess app to read
+                localStorage.setItem('app_key', SECURE_APP_KEY);
+                localStorage.setItem('redirect_url', LOGIN_SUCCESS);
+                localStorage.setItem('failure_url', LOGIN_FAILURE);
+                
+                var aHRef = LOGIN_PAGE + "?app_key=" + encodeURIComponent( SECURE_APP_KEY );
+                console.log('LOGIN_PAGE:', LOGIN_PAGE);
+                console.log('SECURE_APP_KEY:', SECURE_APP_KEY);
+                console.log('Final URL:', aHRef);
+                window.location.href = aHRef ;
+            });                                                                         // .(51013.06.2 End)
+
+            const logo = document.getElementById('logo');                               // .(51013.05.2) 
+//                logo.textContent = `IODD (version: ${IODD_VERSION})                 <!-- .(51013.05.1) -->`;  // .(51013.05.3 RAM set Version) 
+                  logo.innerHTML   = `IODD (version: ${IODD_VERSION})`                         <!-- .(51013.05.1) -->`;  // .(51013.05.3 RAM set Version) 
+            
+/*       // Fetch from server's package.json file                                       //#.(51013.05.3 Beg)
+//          fetch('../../server3/s32_iodd-data-api/package.json')
+//              .then(response => response.json())
+//              .then(pkg => {
+//                  const version = pkg.version.replace('.', ':');
+                    logo.textContent = `IODD (version: ${CLIENT_VERSION})`;
+//              })
+//              .catch(() => {
+//                  console.log('Could not fetch package.json from server');
+//              });
+*/                                                                                      //#.(51013.05.3 End)
+        });
+    </script>
+    <script>
+        // Global variables
+        // window.gMemberId = null;
+        // window.gRole = null;
+        // window.gRoleId = null;
+        
+        // Debug: Log current values
+        console.log('Initial values - gMemberId:', window.gMemberId, 'gRole:', window.gRole, 'gRoleId:', window.gRoleId);
+        
+        // Extract email from URL parameters and lookup member ID
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = urlParams.get('email');
+        if (email) {
+            console.log('Email from URL:', email);
+//          fetch(   `http://localhost:54032/api2/user_by_email?email=${encodeURIComponent(email)}`)        //#.(51013.01.1)
+            fetch(`${window.fvaRs.SERVER_API_URL}/user_by_email?email=${encodeURIComponent(email)}`)        // .(51013.01.1)
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Full API response:', JSON.stringify(data, null, 2));
+                    // Handle different possible response structures
+                    let member = null;
+                    if (data && data.user_by_email && data.user_by_email.length > 0) {
+                        member = data.user_by_email[0];
+                    } else if (data && data.members && data.members.length > 0) {
+                        member = data.members[0];
+                    } else if (data && Array.isArray(data) && data.length > 0) {
+                        member = data[0];
+                    }
+                    
+                    if (member && (member.MemberNo || member.Id)) {
+                        window.gMemberId = member.MemberNo || member.Id;
+                        window.gMemberName = member.UserName || member.FullName || 'Member';
+                        window.gRoleId = member.RoleId || 1;
+                        
+                        console.log('Setting gMemberId:', window.gMemberId, 'gRoleId:', window.gRoleId);
+                        
+                        // Fetch role name (only active roles)
+//                      fetch(   `http://localhost:54032/api2/webpage_roles_view`)                          //#.(51013.01.1 IODD ??)
+                        fetch(`${window.fvaRs.SERVER_API_URL}/webpage_roles_view`)                          // .(51013.01.1 IODD)
+                            .then(response => response.json())
+                            .then(roles => {
+                                const role = roles.find(r => r.Id == window.gRoleId && r.Active === 'Yes');
+                                window.gRole = role ? role.Name : 'Member';
+                                console.log('Role set to:', window.gRole);
+                                console.log('Final values - gMemberId:', window.gMemberId, 'gRole:', window.gRole, 'gRoleId:', window.gRoleId);
+                            })
+                            .catch(error => {
+                                console.error('Error fetching roles:', error);
+                                window.gRole = 'Member';
+                            });
+                        
+                        console.log('Member ID found:', window.gMemberId, 'Name:', window.gMemberName);
+                        updateNavWithMemberName();
+                    } else {
+                        console.log('No member found for email:', email);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching member ID:', error);
+                    window.gMemberId = null;
+                });
+        } else {
+            console.log('No email parameter found in URL');
+        }
+        
+        // Check authentication and update UI
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('All cookies:', document.cookie);
+            
+            // Check for both possible auth token names
+            const authToken = document.cookie.split(';').find(row => 
+                row.trim().startsWith('auth_token=') || row.trim().startsWith('authToken=')
+            );
+            
+            console.log('Found auth token:', authToken);
+            
+            if (authToken) {
+                updateNavWithMemberName();
+            }
+        });
+        
+        function updateNavWithMemberName() {
+            const navButtons = document.querySelector('.nav-buttons');
+            const memberName = window.gMemberName || 'Member';
+            navButtons.innerHTML = `
+                <span style="color: #333; margin-right: 10px;">Welcome, ${memberName}</span>
+                <button class="btn" onclick="logout()">Logout</button>
+            `;
+        }
+        
+        function logout() {
+            document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            window.location.reload();
+        }
+        
+        // Debug function to check global variables
+        window.checkGlobals = function() {
+            console.log('Current global values:');
+            console.log('gMemberId:', window.gMemberId);
+            console.log('gRole:', window.gRole);
+            console.log('gRoleId:', window.gRoleId);
+        };
+        
+        // Create floating database terms in the background
+        const terms = [
+            'SQL', 'NoSQL', 'MongoDB', 'PostgreSQL', 'MySQL', 'Oracle', 'Sybase', 
+            'Database', 'Query', 'Index', 'Schema', 'Table', 'View', 
+            'Stored Procedure', 'Trigger', 'Function', 'Normalization',
+            'ACID', 'Transaction', 'Primary Key', 'Foreign Key', 'JOIN',
+            'Aggregate', 'GROUP BY', 'HAVING', 'WHERE', 'SELECT', 'INSERT',
+            'UPDATE', 'DELETE', 'MERGE', 'UNION', 'INTERSECT', 'EXCEPT'
+        ];
+        
+        const background = document.getElementById('background');
+        
+        for (let i = 0; i < 30; i++) {
+            const term = document.createElement('div');
+            term.className = 'db-term';
+            term.textContent = terms[Math.floor(Math.random() * terms.length)];
+            
+            // Random positioning
+            term.style.left = `${Math.random() * 100}%`;
+            term.style.top = `${Math.random() * 100}%`;
+            
+            // Random animation duration and delay
+            const duration = 15 + Math.random() * 30;
+            const delay = Math.random() * 15;
+            term.style.animation = `float ${duration}s ${delay}s infinite linear`;
+            
+            // Random size
+            const sizes = ['size-small', 'size-medium', 'size-large', 'size-xlarge'];
+            term.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
+            
+            background.appendChild(term);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+    "name": "iodd_dev01-alan_s32_iodd-data-api",
+    "version": "2.02",
+    "author": "Alan McConnell",
+    "license": "ISC",
+    "type": "module",
+    "scripts": {
+        "start": "nodemon server.mjs",
+        "restart": "clear && npm start"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

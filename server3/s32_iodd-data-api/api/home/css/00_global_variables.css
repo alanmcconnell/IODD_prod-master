@@ -1,0 +1,49 @@
+
+/* Basic Blocks Custom App */
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css');   /* .(21211.05.4) */
+
+
+/*-----------------------------------------
+:root selector for variables
+-------------------------------------------*/
+:root {
+    /*CHANGE MEETING DATE BELOW*/
+    --NextMeetingDate: "04/15/23";    
+
+    --GlobalFontFamily: Arial, Helvetica, sans-serif;
+    --GlobalIODDFontSize: 45px;
+    --HamburgerColor: blue;
+    --HamburgerWidthHeight: 60px;
+    --MenuCTAFontSize: 14px;
+
+    --PlatinumColor: #E5E4E2;
+    --HeaderFooterBGColor: rgb(198 210 222);
+    --BodyBGColor: #EDEDED;
+    --BodyBGColor: aliceblue;
+    --Section2BGColor: whitesmoke;
+    --GlobalMaxWidth: 900px;
+    /*--AvatarImageWidth: 80%;*/
+
+    --InitsBGColor: lightblue;
+    --InitsFontSize: 18px;
+    --InitsFontWeight: 500;
+    --InitsFontColor: blue;
+    --InitsFontPadding: 4px;
+    --InitsBorderColor: blue;
+    --InitsBorderWeight: 3px;
+    
+    --CalloutIconCheck: "\f14a  \A"; /*checkbox*/
+    --CalloutIconCheck: "\f0da  \A"; /*Right Arrow*/
+    --CalloutIconCheck: "\f0a4  \A"; /*Right Hand Pointer*/
+    --CalloutIconCheck: "\f105  \A"; /*Right Arrow*/
+    --CalloutIconCheck: "\f328  \A"; /*Clip Board*/
+    --CalloutIconCheck: "\f0ca  \A"; /*Bullets {<li>}*/
+    --CalloutIconCheck: "\f064  \A"; /*Forward Arrow*/
+    --CalloutIconCheck: "\f0ae  \A"; /*ToDo List*/
+    --CalloutIconCheck: "\f35a  \A"; /*Right Arrow in Circles*/
+
+    --CalloutIconFontFamily: "Font Awesome 5 Free";    
+
+} 
+/* END CSS*/

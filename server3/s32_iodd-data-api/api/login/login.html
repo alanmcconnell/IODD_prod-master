@@ -1,0 +1,148 @@
+<!DOCTYPE html><!--
+#*\
+##=========+====================+================================================+
+##RD           login.html       | IODD Login page
+##RFILE    +====================+=======+===============+======+=================+
+##FD           login_u1.02.html |   2925|  3/30/23 12:08|    65| u1.02-30330.1200
+##DESC     .--------------------+-------+---------------+------+-----------------+
+#           This HTML Login page ...
+##LIC      .--------------------+----------------------------------------------+
+#           Copyright (c) 2023 8020Data-formR * Released under
+#           MIT License: http://www.opensource.org/licenses/mit-license.php
+##FNCS     .--------------------+----------------------------------------------+
+#           setUserForm         |
+#           fetchLoginData      |
+#           sayMsg              |
+#                               |
+##CHGS     .--------------------+----------------------------------------------+
+# .(30330.03  3/29/23 RAM  4:20p| Remove unused styles
+# .(30330.04  3/30/23 RAM  4:30p| Remove or replace includes
+# .(30330.05  3/29/23 RAM  4:45p| Ref moved login.js script
+# .(30330.06  3/29/23 RAM  7:00p| Write function fmtLogin
+##PRGM     +====================+===============================================+
+##ID                            |
+##SRCE     +====================+===============================================+
+#*/-->
+
+<html>
+  <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <title> Login </title>
+
+     <link rel="shortcut icon" href="../assets/icons/favicon.png">
+     <link rel="stylesheet"    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+       <script                    src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+<!--BEGINNING OF Global STYLE SHEETS (CSS)-->
+<!-- <link rel="stylesheet"    href="../css/00_global_variables.css"> -->           <!-- .(30330.03.1 Beg RAM Remove most .css files) -->
+<!-- <link rel="stylesheet"    href="../css/01_hamburger.css"> -->
+<!-- <link rel="stylesheet"    href="../css/02_header.css"> -->
+<!-- <link rel="stylesheet"    href="../css/03_footer.css"> -->
+<!-- <link rel="stylesheet"    href="../css/04_index.css"> -->
+<!--RESPONSIVE STYLE SHEETS (CSS)-->
+<!-- <link rel="stylesheet"    href="../css/05_resp_GT0950-bigScreen.css"> -->
+<!-- <link rel="stylesheet"    href="../css/06_resp_741-950-tabletPortrait.css"> -->
+<!-- <link rel="stylesheet"    href="../css/07_resp_440-740-mobileLandscape.css"> -->
+<!-- <link rel="stylesheet"    href="../css/08_resp_LT0440-mobilePortrait.css"> -->
+<!-- <link rel="stylesheet"    href="../css/09_variables.css"> -->                    <!-- .(30330.03.1 End) -->
+
+<!--BEGINNING OF LOCAL STYLE SHEETS (CSS)-->
+     <link rel="stylesheet"    href="login.css">
+
+  </head>
+  <body>
+                                                                                      <!--#.(30330.03.2 Beg RAM Not needed)
+    <script>
+      var aName = "Login"
+    </script>                                                                      --><!--#.(30330.03.2 End) -->
+
+
+
+
+
+  <!-- Header Vars -->                                                                <!--#.(30330.03.3 Beg RAM Not needed)
+    <style>
+    #MenuBlank               {display:block;}
+        #HomeLink                {display:block;}
+        #HomeLinkLine            {display:block;}
+        #MembersLink             {display:block;}
+        #MembersLinkLine         {display:block;}
+        #MembersProjectsLink     {display:block;}
+        #MembersProjectsLinkLine {display:block;}
+        #MtgLocLinkLine          {display:block;}
+        #MtgLocLink a            {display:block;}
+        #LoginLinkLine           {display:block;}
+        #MenuBlank               {display:block;}
+        #LoginLink               {display:none;}
+        #ContactLink a           {color:grey;}
+        #BiosLink a              {color:grey;}
+        #ProjectDetailsLink a    {color:blue;}
+        #GuruLink a              {color:grey;}
+        #SupportLink a           {color:grey;}
+        #LicenseLink a           {color:grey;}
+    </style>                                                                       --><!--#.(30330.03.3 End) -->
+
+  <!-- <script src="../assets/js/login.js"></script>  -->                             <!--#.(30329.08.01 Move to bottom) -->
+
+  <!-- include using jQuery-->                                                        <!--#.(30330.04.1 Beg RAM Remove, or replace Header include )
+    <div id="inc-header"></div>
+    <script>
+      $("#inc-header").load("../includes/inc-header.html");
+    </script>                                                                      --><!--#.(30330.04.1 End) -->
+  <!-- END  Header -->
+
+  <!--  Section 1 -->
+    <div class="Section1" id="Section1">                                              <!-- .(30330.06.1 RAM Create fmtLogin())-->
+      <script type="Module">
+
+       var  nID       =  getCookieID()                                                  // .(30330.06.2 RAM Use function in login.js)
+       var  pUserData =  await fetchLoginData( nID )
+       var  pSection1 =  $('#Section1')
+            pSection1.html( fmtLogin( pUserData ) )
+
+  function  fmtLogin( pData) {                                                          // .(30330.06.3 Beg RAM Write function fmtLogin)
+       var  aHTML = `
+      <div class="Section1Title">institute of database developers</div>
+      <div class="login">
+          <h1>Login</h1>
+          <form action="/auth" method="post">
+            <label for="username">
+              <!-- font awesome icon -->
+              <i class="fas fa-user"></i>
+            </label>
+            <input type="text"     name="username" placeholder="eMail"    id="username" value="${pData.email}" required>
+            <label for="password">
+              <i class="fas fa-lock"></i>
+            </label>
+            <input type="password" name="password" placeholder="Password" id="password" value="${pData.password}" required>
+          <input type="submit" value="Login">
+        </form>
+      </div><!-- eof class login -->
+      `
+    return  aHTML
+            } // eof fmtLogin                                                           // .(30330.06.3 End)
+      </script>
+
+    </div><!-- eof class Section1-->
+  <!--  END Section 1 -->
+
+  <!--  Section 2 -->
+  <!--  END Section 2 -->
+
+  <!--  Footer -->
+        <!--include using jQuery-->                                                   <!--#.(30330.04.2 Beg RAM Remove Footer include )
+        <div id="inc-footer"></div>
+        <script>
+            $("#inc-footer").load("../includes/inc-footer.html");
+        </script>                                                                  --><!--#.(30330.04.2 End) -->
+  <!--  END  Footer -->
+
+<!-- <script src="../assets/js/login.js"></script>   -->                              <!--#.(30329.08.01 RAM Move to bottom) -->
+     <script src="login.js"></script>                                                 <!-- .(30330.05.01 RAM It's in the same login folder) -->
+     <script>
+            sayMsg( `login.html[9]  End of HTML page` )                                 // .(30329.02.14)
+     </script>
+
+  </body>
+</html>

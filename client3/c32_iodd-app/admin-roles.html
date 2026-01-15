@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Roles</title>
+    <link rel="stylesheet" href="footer-styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .main-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .roles-panel {
+            width: 400px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .roles-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+        }
+        .roles-grid {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .role-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .role-item:hover {
+            background-color: #f8f9fa;
+        }
+        .role-item.selected {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+        .role-name {
+            font-weight: 500;
+            color: #333;
+        }
+        .loading-roles {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+        .container {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .add-btn {
+            background: #28a745;
+            color: white;
+        }
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+        .submit-btn {
+            background: #007bff;
+            color: white;
+        }
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .loading { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="roles-panel">
+            <div class="roles-header">Application Roles</div>
+            <div class="roles-grid" id="rolesGrid">
+                <div class="loading-roles">Loading roles...</div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <h2>Role Details</h2>
+            <div id="message" class="message"></div>
+            
+            <form id="roleForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="scope">Scope</label>
+                    <input type="text" id="scope" name="scope">
+                </div>
+                
+                <div class="form-group">
+                    <label for="active">Active</label>
+                    <select id="active" name="active" style="width: 100px;">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="createdAt">Created At</label>
+                    <input type="text" id="createdAt" name="createdAt" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="updatedAt">Updated At</label>
+                    <input type="text" id="updatedAt" name="updatedAt" readonly>
+                </div>
+                
+                <div class="buttons">
+                    <button type="button" class="add-btn" id="addBtn">Add</button>
+                    <button type="button" class="delete-btn" id="deleteBtn">Delete</button>
+                    <button type="submit" class="submit-btn" id="submitBtn">Save</button>
+                    <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="_config.js"></script>                                                <!-- .(51013.01.4 RAM New config) -->
+    <script src="lib/JWT-Tokens-Client.js"></script>
+    <script src="lib/global-auth.js"></script>
+    <script src="lib/role-permissions.js"></script>
+    <script src="lib/acm_Prompts.js"></script>
+    <script src="admin-roles.js"></script>
+</body>
+</html>

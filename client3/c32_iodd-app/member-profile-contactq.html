@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Emails - Member Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            min-height: 600px;
+        }
+
+        .left-panel {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .right-panel {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .panel-title {
+            font-size: 18px;
+            color: #333;
+            margin: 0;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .filter-select {
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            min-width: 80px;
+        }
+
+        .data-grid {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .data-grid th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .data-grid td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .data-grid tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .data-grid tr.selected {
+            background-color: #e3f2fd;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+            color: #666;
+        }
+
+        .form-input:disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .form-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            background-color: white;
+            color: #333;
+        }
+
+        .question-field {
+            min-height: 80px;
+            background-color: #f9f9f9;
+            color: #666;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .error {
+            background: #fdf2f2;
+            color: #e74c3c;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-style: italic;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-email {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-email:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-delete:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .main-content {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .left-panel, .right-panel {
+                padding: 15px;
+            }
+
+            .panel-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .filter-group {
+                align-self: flex-end;
+            }
+
+            .data-grid th, .data-grid td {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+            .panel-title {
+                font-size: 16px;
+            }
+
+            .button-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .main-content {
+                padding: 10px;
+            }
+
+            .left-panel, .right-panel {
+                padding: 10px;
+            }
+
+            .panel-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                justify-content: space-between;
+                align-self: stretch;
+            }
+
+            .data-grid {
+                font-size: 11px;
+            }
+
+            .data-grid th, .data-grid td {
+                padding: 6px 4px;
+                font-size: 11px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-label {
+                font-size: 12px;
+            }
+
+            .form-input, .form-textarea {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Contact Emails</h1>
+            <p>Manage and respond to contact inquiries</p>
+        </div>
+
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Contact Messages</h2>
+                    <div class="filter-group">
+                        <label class="filter-label" for="statusFilter">Status Filter:</label>
+                        <select id="statusFilter" class="filter-select" onchange="filterMessages()">
+                            <option value="All">All</option>
+                            <option value="New" selected>New</option>
+                            <option value="Sent">Sent</option>
+                            <option value="Working On">Working On</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="gridContainer">
+                    <div class="loading">Loading contact messages...</div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <h2 class="panel-title">Message Details</h2>
+                <div id="detailsContainer">
+                    <div class="no-data">Select a message from the left to view details</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="_config.js"></script>                                                <!-- .(51013.01.18 RAM New config) -->
+    <script src="lib/JWT-Tokens-Client.js"></script>
+    <script src="lib/global-auth.js"></script>
+    <script src="lib/role-permissions.js"></script>
+    <script src="lib/acm_Prompts.js"></script>
+    <script>
+        // Initialize GlobalAuth on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            await GlobalAuth.initialize();
+            console.log('GlobalAuth initialized - Role:', GlobalAuth.getRole());
+        });
+    </script>
+    <script src="member-profile-contactq.js"></script>
+</body>
+</html>

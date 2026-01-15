@@ -1,0 +1,82 @@
+.PencilImage {
+    display: none;
+}
+
+#BiosLink,
+#ProjectDetailsLink,
+#WonderLink {
+    height: 30px;
+}
+
+/***********************************/
+/*LOGIN - LOGOUT DISPLAY ATTRIBUTES*/
+/*USE JS TO CHANGE SEVERAL ATTRIBUTES BELOW*/
+/*---------------------------------*/
+/* td.HeaderNavListItemInits {
+    display: none;
+    width: 5%;
+} */
+td.HeaderNavListItemLogin {
+    display: flex;
+    width: 5%;
+}
+.HeaderNavListItemLogin a {
+    padding: var(--InitsFontPadding);
+    border-radius: 50%;
+    text-decoration: none;
+    background-color: blue; /*var(--PlatinumColor);*/
+/*  ^^^ ??? change circle background color ^^^ */
+    border: #5A5A5A var(--InitsBorderWeight) solid;
+/*  ^^^ ??? change border color ^^^ */
+}
+
+td.HeaderNavListItemLogin a::before {
+    font-family: monospace;
+    font-size: var(--InitsFontSize);
+    font-weight: var(--InitsFontWeight);
+    color: white;
+/*  ^^^ change font color from whitesmoke to blue ^^^ */
+
+/*  content: "RS";  *//* .(30329.08.1 RAM Set value in Javascript) */ 
+/*  ^^^ change content from Inits to LO ^^^ */
+}
+.ToolTipHide::after{
+    color: blue;
+    font-size: 14px;
+    font-weight: 800;
+    content: "Welcome";
+/*  ^^^ change content from 'Log In' to 'Welcome' ^^^ */
+}
+a.ToolTip:hover span {
+    border: #666 1px solid;
+    padding: 2px 0px 2px 2px;
+    display: block;
+    z-index: 100;
+    background: whitesmoke;
+    left: -40px;
+    margin-top: 16px;
+    position: absolute;
+    top: 18px;
+    text-decoration: none;
+    text-align: center;
+    width: 70px;
+/*  ???? ^^^ change width from 50px to 90px ^^^ */
+}
+a.ToolTip:hover {
+    cursor: pointer;
+    position: relative;
+}
+    a.ToolTip span {
+    display: none;
+}  
+#ContactAll {    
+    font-size: 18px ;
+    display: block;
+/*  ^^^ change from block to none ^^^ */
+}
+.fa-file-text:before {
+    content: "\f15c";
+    font-size: 18px;
+}
+/*---------------------------------*/
+/*END LOGIN - LOGOUT DISPLAY ATTRIBUTES*/
