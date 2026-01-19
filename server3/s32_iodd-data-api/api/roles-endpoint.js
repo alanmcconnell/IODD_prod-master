@@ -9,10 +9,10 @@ async function rolesHandler(req, res) {
     try {
         // Create database connection
         const pool = mysql.createPool({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
+            host: process.env.DB_Host,
+            user: process.env.DB_User,
+            password: process.env.DB_Password,
+            database: process.env.DB_Database,
             waitForConnections: true,
             connectionLimit: 10,
             queueLimit: 0
@@ -21,7 +21,7 @@ async function rolesHandler(req, res) {
         if (req.method === 'GET') {
             // Get all roles
             const [rows] = await pool.execute(
-                `SELECT * FROM ${process.env.DB_NAME}.roles ORDER BY Name`
+                `SELECT * FROM ${process.env.DB_Database}.roles ORDER BY Name`
             );
             
             return res.json({
@@ -45,7 +45,7 @@ async function rolesHandler(req, res) {
             if (id && id !== '0') {
                 // Update existing role
                 const [result] = await pool.execute(
-                    `UPDATE ${process.env.DB_NAME}.roles SET Name = ?, Scope = ?, Active = ?, UpdatedAt = NOW() WHERE Id = ?`,
+                    `UPDATE ${process.env.DB_Database}.roles SET Name = ?, Scope = ?, Active = ?, UpdatedAt = NOW() WHERE Id = ?`,
                     [name, scope || '', active || 'Yes', id]
                 );
                 
@@ -57,7 +57,7 @@ async function rolesHandler(req, res) {
             } else {
                 // Create new role
                 const [result] = await pool.execute(
-                    `INSERT INTO ${process.env.DB_NAME}.roles (Name, Scope, Active, CreatedAt, UpdatedAt) VALUES (?, ?, ?, NOW(), NOW())`,
+                    `INSERT INTO ${process.env.DB_Database}.roles (Name, Scope, Active, CreatedAt, UpdatedAt) VALUES (?, ?, ?, NOW(), NOW())`,
                     [name, scope || '', active || 'Yes']
                 );
                 
@@ -81,7 +81,7 @@ async function rolesHandler(req, res) {
             }
             
             const [result] = await pool.execute(
-                `DELETE FROM ${process.env.DB_NAME}.roles WHERE Id = ?`,
+                `DELETE FROM ${process.env.DB_Database}.roles WHERE Id = ?`,
                 [roleId]
             );
             

@@ -761,10 +761,10 @@
             bQuiet     =  setVar1( 'Quiet', bQuiet_, true )   // Override value in .env
             bQuiet     =  bQuiet ?  true :  false;            // console.log( `bQuiet:        ${bQuiet}`   );  process.exit()
 //                                     
-                          setVar2( 'DB_Host',     'localhost'   , 'host' )                                  // .(5070708.01.RAM Set from process.env or default. Look in pDB_Config too)
-                          setVar2( 'DB_User',     'nimdas'      , 'user' )
-                          setVar2( 'DB_Password', 'FormR!1234'  , 'password' )
-                          setVar2( 'DB_Database', 'iodd'        , 'database' )                              // .(30320.06.1 RAM Opps )
+                          setVar2( 'DB_Host',     '92.112.184.206', 'host' )                                // .(5070708.01.RAM Set from process.env or default. Look in pDB_Config too)
+                          setVar2( 'DB_User',     'iodd-user'   , 'user' )
+                          setVar2( 'DB_Password', 'RcOElFWqqHG2sToZJyzI', 'password' )
+                          setVar2( 'DB_Database', 'iodd2'       , 'database' )                              // .(30320.06.1 RAM Opps )
 
                          console.log( `pDB_Config.host:     ${pDB_Config.host}` )
                          console.log( `pDB_Config.user:     ${pDB_Config.user}` )

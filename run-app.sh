@@ -1,7 +1,7 @@
 #!/bin/bash
 
   nPrj=54  # Can't be greater than 64   # .(51013.05.1 IODD Project Number
-  nUseThisClientPort="54332"            # .(51013.05.1 Use Normal Client Port for IODD)
+  nUseThisClientPort="54132"            # .(51013.05.1 Use Normal Client Port for IODD)
   nUseThisStage=3                       # .(51017.05.1 Ok force it the Stage)
 
   nStg=4; if [[ "$(realpath "$0")" == *dev* ]]; then nStg=3; fi
@@ -25,7 +25,7 @@
      echo -e   "     -b   = Debug, -q = Quietly, -s = Set _config.js to _config.yaml"
      echo -e   ""
      echo -e   "  Example: run-app a32  # run both Client and Server App no. 32"
-     echo -e   "     Runs: Client App on Port 54332 and Server API on Port 54382"
+     echo -e   "     Runs: Client App on Port 54132 and Server API on Port 54182"
      if [ "${OS:0:3}" != "Win" ]; then echo ""; fi
      exit; fi
 # ---------------------------------------------------
@@ -45,7 +45,7 @@ function checkFW() {
     if [ "${OSTYPE:0:6}" == "darwin" ]; then return; fi                                                     # .(51124.03.1 RAM ufw is different/complicated on a mac)
     bOK="$( sudo ufw status | awk '/'$1'/ { print 1 }; END { print 0 }' )"
     if [ "${bOK}" == "0" ]; then sudo ufw allow $1/tcp > /dev/null 2>&1;
-#                                sudo ufw delete allow 54332/tcp
+#                                sudo ufw delete allow 54132/tcp
     echo "    Opened firewall for port: $1"
     fi
     }

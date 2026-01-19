@@ -4,6 +4,10 @@ import crypto from 'crypto';
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
 const JWT_EXPIRY = '1h';
 
+if (!process.env.JWT_SECRET) {
+    console.warn('WARNING: JWT_SECRET not set in environment variables. Using random secret (will change on restart).');
+}
+
 export function acmJWTCreate(payload = {}) {
     try {
         const tokenPayload = {

@@ -113,6 +113,7 @@
     import   express from  'express';
     import   cors from 'cors';
     import   cookieParser from 'cookie-parser';
+    import { rateLimiter, authenticateToken, requireRole } from '../auth-middleware.js';
 
     import { getEnv_sync, __dirname                           } from './assets/mjs/formr_utility-fns.mjs'   // .(50706.03.1 RAM Gotta doit here).(30410.02.1).(30410.03.1 Add setAPI_URL).(30412.02.10).(30416.02.3).(30416.03.3)
     import   path from 'path';
@@ -255,10 +256,24 @@
            credentials: true
        }));
        
+       // Security headers
+       pApp.use((req, res, next) => {
+           res.setHeader('X-Content-Type-Options', 'nosniff');
+           res.setHeader('X-Frame-Options', 'DENY');
+           res.setHeader('X-XSS-Protection', '1; mode=block');
+           if (process.env.NODE_ENV === 'production') {
+               res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+           }
+           next();
+       });
+       
        // Parse cookies and body
        pApp.use(cookieParser());
        pApp.use(express.json());
        pApp.use(express.urlencoded({ extended: true }));
+       
+       // Apply rate limiting to all API routes
+       pApp.use(global.aAPI_Host, rateLimiter);
 
        var  pDB_Config= {                                                               // .(30412.02.13 RAM Override it here??)
             host:     process.env.DB_HOST,
@@ -281,6 +296,7 @@ this.setRoutes = async function( bQuiet, aAPI_Host ) {                          
             this.Login_postRoute( )                 // .(30403.02.1)
 //          this.Login_postForm( )                  // .(30403.02.1)
             await this.PKCEAuth_getRoute( )         // PKCE authentication callback
+            await this.Register_postRoute( )        // Secure registration endpoint
 
             this.Meetings_getRoute( )
 
@@ -896,6 +912,20 @@ this.PKCEAuth_getRoute = async function() {
 }; // eof PKCEAuth_getRoute
 
 //--------  ------------------  =  --------------------------------- ------------------
+
+//-(Secure Registration)--------------------------------------------------
+
+this.Register_postRoute = async function() {
+    const registerHandler = (await import('./register-endpoint.js')).default;
+    // Wrap handler to pass database connection
+    pApp.post(`${global.aAPI_Host}/register`, async (req, res) => {
+        req.pDB = pDB;  // Pass database connection
+        await registerHandler(req, res);
+    });
+    sayMsg('post', `${global.aAPI_Host}/register`);
+}; // eof Register_postRoute
+
+//--------  ------------------  =  --------------------------------- ------------------
 //=====================================================================================
 
 
@@ -1298,8 +1328,7 @@ this.Industry_getRoute = function() {
 
 this.Projects_getRoute = function( ) {                                                    // GET Route, '/projects
 
-        // var aSQL = `SELECT * FROM projects`
-        var aSQL = `SELECT DISTINCT ID FROM ${process.env.DB_NAME}.projects`
+        var aSQL = `SELECT * FROM projects`
             setRoute( pApp, 'get', '/projects',         JSON_getRoute_Handler,  aSQL )
 
          }; // eof Projects_getRoute

@@ -38,27 +38,25 @@ class Registration {
 
     async submitRegistration() {
         try {
+            // Validate form data
             const formData = this.getFormData();
+            const validation = this.validateFormData(formData);
             
-            // Prepare member data for database - use mid: 0 to trigger INSERT
-            const memberData = {
-                mid: 0,
-                'first-name': formData.firstName,
-                'last-name': formData.lastName,
-                email: formData.email,
-                password: 'iodd',
-                'role-id': 1
-            };
+            if (!validation.valid) {
+                alert(validation.message);
+                return;
+            }
             
-            console.log('Sending registration data:', memberData);
-            console.log('API URL:', `${this.apiBaseUrl}/member`);
+            console.log('Sending registration to:', `${this.apiBaseUrl}/register`);
+            console.log('Form data:', { ...formData, password: '***', secureAnswer1: '***', secureAnswer2: '***' });
             
-            const response = await fetch(`${this.apiBaseUrl}/member`, {
+            // Send all registration data to server via POST
+            const response = await fetch(`${this.apiBaseUrl}/register`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json'
                 },
-                body: new URLSearchParams(memberData)
+                body: JSON.stringify(formData)
             });
             
             console.log('Response status:', response.status);
@@ -67,69 +65,76 @@ class Registration {
             const responseText = await response.text();
             console.log('Response text:', responseText);
             
-            if (response.ok) {
-                // Create PKCE token and redirect to login page
-                await this.createPKCETokenAndRedirect(formData);
+            let result;
+            try {
+                result = JSON.parse(responseText);
+                console.log('Parsed result:', result);
+            } catch (e) {
+                throw new Error(`Server returned invalid JSON: ${responseText}`);
+            }
+            
+            if (response.ok && result.success) {
+                alert('Registration successful! Please log in with your credentials.');
+                window.location.href = 'index.html';
             } else {
-                throw new Error(`Registration failed: ${response.status} - ${responseText}`);
+                const errorMsg = result.message || result.error || `Registration failed with status ${response.status}`;
+                console.error('Registration failed:', errorMsg);
+                throw new Error(errorMsg);
             }
         } catch (error) {
             console.error('Registration error:', error);
             alert(`Registration failed: ${error.message}`);
         }
     }
-
-    async createPKCETokenAndRedirect(formData) {
-        try {
-            const tokenPayload = {
-                first_name: formData.firstName,
-                last_name: formData.lastName,
-                email: formData.email,
-                password: formData.password,
-                security_question_1: formData.secureQuestion1,
-                security_answer_1: formData.secureAnswer1,
-                security_question_2: formData.secureQuestion2,
-                security_answer_2: formData.secureAnswer2,
-                user_app_role: 'Member',
-                app_key: window.fvaRs?.SECURE_APP_KEY || '',
-                url_redirect: window.fvaRs?.failure_URL || 'index.html'
-            };
-
-            const tokenResponse = await fetch(`${this.apiBaseUrl}/jwt/create`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ payload: tokenPayload })
-            });
-
-            if (tokenResponse.ok) {
-                const tokenData = await tokenResponse.json();
-                const loginPage = window.fvaRs?.LOGIN_PAGE || 'index.html';
-                const loginUrl = `${loginPage}?reg_key=yes&pkce=${encodeURIComponent(tokenData.token)}`;
-                console.log('Redirecting to:', loginUrl);
-                window.location.href = loginUrl;
-            } else {
-                throw new Error('Failed to create PKCE token');
-            }
-        } catch (error) {
-            console.error('PKCE token creation failed:', error);
-            alert('Registration successful! Welcome to IODD.');
-            window.location.href = 'index.html';
+    
+    validateFormData(data) {
+        // Email validation
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(data.email)) {
+            return { valid: false, message: 'Please enter a valid email address' };
         }
+        
+        // Password strength validation
+        if (data.password.length < 8) {
+            return { valid: false, message: 'Password must be at least 8 characters long' };
+        }
+        
+        if (!/[A-Z]/.test(data.password)) {
+            return { valid: false, message: 'Password must contain at least one uppercase letter' };
+        }
+        
+        if (!/[a-z]/.test(data.password)) {
+            return { valid: false, message: 'Password must contain at least one lowercase letter' };
+        }
+        
+        if (!/[0-9]/.test(data.password)) {
+            return { valid: false, message: 'Password must contain at least one number' };
+        }
+        
+        // Check all required fields
+        const requiredFields = ['firstName', 'lastName', 'email', 'username', 'password', 
+                                'secureQuestion1', 'secureAnswer1', 'secureQuestion2', 'secureAnswer2'];
+        
+        for (const field of requiredFields) {
+            if (!data[field] || data[field].trim() === '') {
+                return { valid: false, message: `${field} is required` };
+            }
+        }
+        
+        return { valid: true };
     }
 
     getFormData() {
         return {
-            firstName: document.getElementById('firstName').value,
-            lastName: document.getElementById('lastName').value,
-            email: document.getElementById('email').value,
-            username: document.getElementById('username').value,
-            password: document.getElementById('password').value, // Will be encrypted later
-            secureQuestion1: document.getElementById('secureQuestion1').value,
-            secureAnswer1: document.getElementById('secureAnswer1').value,
-            secureQuestion2: document.getElementById('secureQuestion2').value,
-            secureAnswer2: document.getElementById('secureAnswer2').value
+            firstName: document.getElementById('firstName').value.trim(),
+            lastName: document.getElementById('lastName').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            username: document.getElementById('username').value.trim(),
+            password: document.getElementById('password').value,
+            secureQuestion1: document.getElementById('secureQuestion1').value.trim(),
+            secureAnswer1: document.getElementById('secureAnswer1').value.trim(),
+            secureQuestion2: document.getElementById('secureQuestion2').value.trim(),
+            secureAnswer2: document.getElementById('secureAnswer2').value.trim()
         };
     }
 }

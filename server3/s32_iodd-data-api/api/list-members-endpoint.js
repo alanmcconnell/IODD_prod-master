@@ -9,10 +9,10 @@ async function listMembersHandler(req, res) {
     try {
         // Create database connection
         const pool = mysql.createPool({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
+            host: process.env.DB_Host,
+            user: process.env.DB_User,
+            password: process.env.DB_Password,
+            database: process.env.DB_Database,
             waitForConnections: true,
             connectionLimit: 10,
             queueLimit: 0
