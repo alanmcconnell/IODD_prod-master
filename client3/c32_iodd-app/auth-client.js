@@ -8,8 +8,8 @@ async function getCurrentUser() {
     try {
         // Try the member info endpoint first
 //      const response = await fetch( 'http://localhost:54032/api2/member/info', {      //#.(51013.01.4)        
-//      const response = await fetch(`${window.fvaRs.AUTH_API_URL}/member/info`, {      //#.(51013.01.4)        
-        const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member/info`, {    // .(51013.01.4)        
+//      const response = await fetch(`${window.FVARS.AUTH_API_URL}/member/info`, {      //#.(51013.01.4)        
+        const response = await fetch(`${window.FVARS.SERVER_API_URL}/member/info`, {    // .(51013.01.4)        
             credentials: 'include'
         });
         
@@ -63,8 +63,8 @@ function updateUIForGuestUser() {
 async function logout() {
     try {
 //      await fetch( 'http://localhost:54032/api2/auth/logout', {                       //#.(51013.01.4) 
-//      await fetch(`${window.fvaRs.AUTH_API_URL}/auth/logout`, {                       //#.(51013.01.4) 
-        await fetch(`${window.fvaRs.SECURE_API_URL}/auth/logout`, {                     // .(51013.01.4) 
+//      await fetch(`${window.FVARS.AUTH_API_URL}/auth/logout`, {                       //#.(51013.01.4) 
+        await fetch(`${window.FVARS.SECURE_API_URL}/auth/logout`, {                     // .(51013.01.4) 
             method: 'POST',
             credentials: 'include'
         });

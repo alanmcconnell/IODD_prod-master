@@ -3,7 +3,7 @@ class AboutClient {
 
     constructor() {
 //      this.baseUrl        = 'http://localhost:3004/api';                              //#.(51013.01.11)
-        this.baseUrl        = window.fvaRs.SERVER_API_URL;                              // .(51013.01.11)
+        this.baseUrl        = window.FVARS.SERVER_API_URL;                              // .(51013.01.11)
 
         this.aboutInfo = {
             mission: "The Institute of Database Developers (IODD) is dedicated to advancing the field of database development through professional collaboration, knowledge sharing, and innovative solutions. We bring together experts in database design, implementation, and optimization to tackle complex data challenges across industries.",

@@ -1,7 +1,7 @@
 class LoginClient {
     constructor() {
 //      this.baseUrl = 'http://localhost:54032/api2';                                   //#.(51013.01.31 AMC Assuming same base URL as other clients)
-        this.baseUrl = window.fvaRs.SERVER_API_URL;                                     // .(51013.01.31)        
+        this.baseUrl = window.FVARS.SERVER_API_URL;                                     // .(51013.01.31)        
     }
 
     async login(username, password) {

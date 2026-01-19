@@ -51,7 +51,7 @@ class MemberProfileInfo {
 
     async loadRoles() {
         try {
-            const response = await fetch(`${window.fvaRs.SERVER_API_URL}/webpage_roles_view`);              // .(51013.01.21)
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/webpage_roles_view`);              // .(51013.01.21)
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -123,7 +123,7 @@ class MemberProfileInfo {
 
     async loadMembersList() {
         try {
-            const response = await fetch(`${window.fvaRs.SERVER_API_URL}/list/members`);                    // .(51013.01.21)
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/list/members`);                    // .(51013.01.21)
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -212,7 +212,7 @@ class MemberProfileInfo {
             this.showMessage('Loading member data...', 'loading');
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-            const response = await fetch(`${window.fvaRs.SERVER_API_URL}/members?id=${encodeURIComponent(memberId)}`, { // .(51013.01.21)
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/members?id=${encodeURIComponent(memberId)}`, { // .(51013.01.21)
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -355,7 +355,7 @@ class MemberProfileInfo {
             });
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-            const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member`, {                         // .(51013.01.21)
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/member`, {                         // .(51013.01.21)
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -437,7 +437,7 @@ class MemberProfileInfo {
             });
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-            const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member`, {                         // .(51013.01.21)
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/member`, {                         // .(51013.01.21)
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -595,7 +595,7 @@ class MemberProfileInfo {
             this.showMessage('Deleting...', 'loading');
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-            const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member?id=${this.selectedMemberId}`, { // .(51013.01.21)
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/member?id=${this.selectedMemberId}`, { // .(51013.01.21)
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken || '',

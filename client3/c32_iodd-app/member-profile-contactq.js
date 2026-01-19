@@ -3,7 +3,7 @@ class ContactEmailsManager {
     constructor() {
         this.contactData = [];
         this.selectedContactId = null;
-        this.apiBaseUrl = window.fvaRs.SERVER_API_URL;
+        this.apiBaseUrl = window.FVARS.SERVER_API_URL;
         this.init();
     }
 

@@ -355,13 +355,13 @@
     <script src="lib/acm_Prompts.js"></script>
     <script src="footer-content.js"></script>
     <script>
-    //      alert("window.fvaR: " + JSON.stringify( window.fvaRs ));                    //#.(51013.01.2 RAM Set fvaRs) 
-        var LOGIN_PAGE     = window.fvaRs.LOGIN_PAGE                                    // .(51013.01.2 RAM Set fvaRs) 
-        var LOGIN_SUCCESS  = window.fvaRs.LOGIN_SUCCESS                                 // .(51013.01.2) 
-        var LOGIN_FAILURE  = window.fvaRs.LOGIN_FAILURE                                 // .(51013.01.2) 
-        // var IODD_VERSION   = window.fvaRs.IODD_VERSION                                  // .(51013.05.1 RAM Get Version) 
-        var IODD_VERSION = window.fvaRs.PROJECT_VERSION
-        var SECURE_APP_KEY = window.fvaRs.SECURE_APP_KEY                                // .(55301)
+    //      alert("window.fvaR: " + JSON.stringify( window.FVARS ));                    //#.(51013.01.2 RAM Set FVARS) 
+        var LOGIN_PAGE     = window.FVARS.LOGIN_PAGE                                    // .(51013.01.2 RAM Set FVARS) 
+        var LOGIN_SUCCESS  = window.FVARS.LOGIN_SUCCESS                                 // .(51013.01.2) 
+        var LOGIN_FAILURE  = window.FVARS.LOGIN_FAILURE                                 // .(51013.01.2) 
+        // var IODD_VERSION   = window.FVARS.IODD_VERSION                                  // .(51013.05.1 RAM Get Version) 
+        var IODD_VERSION = window.FVARS.PROJECT_VERSION
+        var SECURE_APP_KEY = window.FVARS.SECURE_APP_KEY                                // .(55301)
 
         document.addEventListener('DOMContentLoaded', function() {                      // .(51013.06.2 RAM Moved from toip of <body> Beg)
             
@@ -410,7 +410,7 @@
         if (email) {
             console.log('Email from URL:', email);
 //          fetch(   `http://localhost:54032/api2/user_by_email?email=${encodeURIComponent(email)}`)        //#.(51013.01.1)
-            fetch(`${window.fvaRs.SERVER_API_URL}/user_by_email?email=${encodeURIComponent(email)}`)        // .(51013.01.1)
+            fetch(`${window.FVARS.SERVER_API_URL}/user_by_email?email=${encodeURIComponent(email)}`)        // .(51013.01.1)
                 .then(response => {
                     console.log('Response status:', response.status);
                     return response.json();
@@ -436,7 +436,7 @@
                         
                         // Fetch role name (only active roles)
 //                      fetch(   `http://localhost:54032/api2/webpage_roles_view`)                          //#.(51013.01.1 IODD ??)
-                        fetch(`${window.fvaRs.SERVER_API_URL}/webpage_roles_view`)                          // .(51013.01.1 IODD)
+                        fetch(`${window.FVARS.SERVER_API_URL}/webpage_roles_view`)                          // .(51013.01.1 IODD)
                             .then(response => response.json())
                             .then(roles => {
                                 const role = roles.find(r => r.Id == window.gRoleId && r.Active === 'Yes');

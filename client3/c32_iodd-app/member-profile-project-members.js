@@ -1,5 +1,5 @@
 // Project Members Management
-const API_BASE_URL =  window.fvaRs.SERVER_API_URL;                                      // .(51013.01.23) 
+const API_BASE_URL =  window.FVARS.SERVER_API_URL;                                      // .(51013.01.23) 
 
 let projects = [];
 let members = [];

@@ -1,5 +1,5 @@
 
-     var SERVER_API_URL = window.fvaRs.SERVER_API_URL;                               // .(51013.01.5)
+     var SERVER_API_URL = window.FVARS.SERVER_API_URL;                               // .(51013.01.5)
 
 class MemberProfileClient {
     constructor() {

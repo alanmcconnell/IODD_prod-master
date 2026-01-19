@@ -80,7 +80,7 @@ class MemberProfileSkills {
 
     async loadMembersList() {
         try {
-            const response = await fetch(`${window.fvaRs.SERVER_API_URL}/list/members`);                    // .(51013.01.27)
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/list/members`);                    // .(51013.01.27)
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -182,7 +182,7 @@ class MemberProfileSkills {
         try {
             this.showMessage('Loading member data...', 'loading');
 
-            const response = await fetch(`${window.fvaRs.SERVER_API_URL}/members?id=${memberId}`, {
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/members?id=${memberId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -270,10 +270,10 @@ class MemberProfileSkills {
             formData.append('mid', memberId);
             formData.append('skills', skills);
             
-            console.log(`Sending POST to: ${window.fvaRs.SERVER_API_URL}/member_skills`);                   // .(51013.01.27)
+            console.log(`Sending POST to: ${window.FVARS.SERVER_API_URL}/member_skills`);                   // .(51013.01.27)
             console.log('FormData entries:', Array.from(formData.entries()));
 
-            const response = await fetch(`${window.fvaRs.SERVER_API_URL}/member_skills`, {                  // .(51013.01.27)
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/member_skills`, {                  // .(51013.01.27)
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'

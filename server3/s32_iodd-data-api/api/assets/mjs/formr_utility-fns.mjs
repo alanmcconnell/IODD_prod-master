@@ -138,7 +138,7 @@ async function  setAPI_URL( pEnv,  aNum ) {                                     
 //         console.log( `getEnv_sync[2]        Reading local file, '${aFile}'` )
        if (!pFS.default.existsSync( aFile )) {                                                              // .(51123.02.2 Check .env-local.env or remote file Beg)
         var aRemote = `${process.env.THE_SERVER}`.match( /formr/i ) ? 'remote' : 'local'
-            aRemote =   (process.fvaRs.SERVER_LOCATION || '').toLowerCase()=='remote' ? 'remote' : aRemote  // .(51124.05.1 RAM Another override)
+            aRemote =   (process.FVARS.SERVER_LOCATION || '').toLowerCase()=='remote' ? 'remote' : aRemote  // .(51124.05.1 RAM Another override)
         var aFile2  = path.join( aFile.replace( /\.env/, '' ), `api/.env-${aRemote}.env` )
         if (pFS.default.existsSync( aFile2 )) {                                                            
             pFS.default.copyFileSync( aFile2, aFile )                                                       // .(51123.02.2 RAM Copy .env-local.env or .env-remote.env to .env)

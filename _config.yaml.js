@@ -15,8 +15,8 @@ var _FVARS =
 , "LOGIN_SUCCESS":  "http://localhost:54132/member-profile.html"
 , "LOGIN_FAILURE":  "http://localhost:54132/index.html"
   }
-  if (typeof(window)  != 'undefined') {  window.fvaRs  = _FVARS; var aGlobal = "window"  }
-  if (typeof(process) != 'undefined') {  process.fvaRs = _FVARS; var aGlobal = "process" }
+  if (typeof(window)  != 'undefined') {  window.FVARS  = _FVARS; var aGlobal = "window"  }
+  if (typeof(process) != 'undefined') {  process.FVARS = _FVARS; var aGlobal = "process" }
    
-      console.log( `${aGlobal}.fvaRs:`, fmtFVARS( JSON.stringify( _FVARS, "", 2 ).split("\n") ).join("\n") )
+      console.log( `${aGlobal}.FVARS:`, fmtFVARS( JSON.stringify( _FVARS, "", 2 ).split("\n") ).join("\n") )
       function fmtFVARS( mFVars ) { return mFVars.map( a => a.replace( /: "/g, `:${''.padEnd( 20 - (a.indexOf(":")) )} "` ) ) }

@@ -3,7 +3,7 @@ class MemberBiosClient {
     constructor() {
         this.baseUrl = 'http://localhost:3004/api';
 //      this.baseUrl        = 'http://localhost:3004/api';                              //#.(51013.01.15)
-        this.baseUrl        =  window.fvaRs.SERVER_API_URL;                             // .(51013.01.15)
+        this.baseUrl        =  window.FVARS.SERVER_API_URL;                             // .(51013.01.15)
     }
 
     async fetchData(endpoint) {

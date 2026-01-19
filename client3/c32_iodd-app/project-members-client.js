@@ -1,7 +1,7 @@
 // Simple Projects Display
 async function loadProjects() {
     try {
-        const response = await fetch(`${window.fvaRs.SERVER_API_URL}/webpage_project_info_view`);
+        const response = await fetch(`${window.FVARS.SERVER_API_URL}/webpage_project_info_view`);
         const data = await response.json();
         
 
@@ -138,7 +138,7 @@ async function loadProjects() {
 async function loadProjectMembers(projectId) {
     try {
 //      const response = await fetch(     `http://localhost:3004/api/webpage_project_members_view?ProjectID=${projectId}`);  /#.(51013.01.35)  
-        const response = await fetch(`${window.fvaRs.SERVER_API_URL}/webpage_project_members_view?ProjectID=${projectId}`);  // .(51013.01.35)        
+        const response = await fetch(`${window.FVARS.SERVER_API_URL}/webpage_project_members_view?ProjectID=${projectId}`);  // .(51013.01.35)        
         const data = await response.json();
         
         let members = data;

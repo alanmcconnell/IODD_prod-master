@@ -1,6 +1,6 @@
 // Email sending process from member-profile-contactq.html
 async function sendEmail(contactId, answerText) {
-    const apiBaseUrl = window.fvaRs.SERVER_API_URL;
+    const apiBaseUrl = window.FVARSv.SERVER_API_URL;
     
     // Get contact data (you'll need to adapt this to your data source)
     const contact = getContactById(contactId);
@@ -39,7 +39,7 @@ async function sendEmail(contactId, answerText) {
 }
 
 async function updateContactStatus(contactId, status) {
-    const apiBaseUrl = window.fvaRs.SERVER_API_URL;
+    const apiBaseUrl = window.FVARS.SERVER_API_URL;
     
     try {
         await fetch(`${apiBaseUrl}/contactmail/${contactId}`, {

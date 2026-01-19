@@ -1,6 +1,6 @@
 // admin-roles.js
-//      var CLIENT_PATH    = window.fvaRs.CLIENT_PATH;                                  //#.(51013.01.5)
-        var SERVER_API_URL = window.fvaRs.SERVER_API_URL;                               // .(51013.01.5)
+//      var CLIENT_PATH    = window.FVARS.CLIENT_PATH;                                  //#.(51013.01.5)
+        var SERVER_API_URL = window.FVARS.SERVER_API_URL;                               // .(51013.01.5)
 
 class AdminRoles {
     constructor() {
