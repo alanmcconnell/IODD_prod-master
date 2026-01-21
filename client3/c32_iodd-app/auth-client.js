@@ -45,10 +45,22 @@ function updateUIForAuthenticatedUser(user) {
     const navButtons = document.querySelector('.nav-buttons');
     if (navButtons) {
         const displayName = user.FullName || user.username || user.Email || 'Member';
-        navButtons.innerHTML = `
-            <span style="color: #333; margin-right: 10px;">Welcome, ${displayName}</span>
-            <button class="btn" onclick="logout()">Logout</button>
-        `;
+        
+        // Create elements safely without innerHTML
+        navButtons.innerHTML = '';
+        
+        const welcomeSpan = document.createElement('span');
+        welcomeSpan.style.color = '#333';
+        welcomeSpan.style.marginRight = '10px';
+        welcomeSpan.textContent = `Welcome, ${displayName}`;
+        
+        const logoutBtn = document.createElement('button');
+        logoutBtn.className = 'btn';
+        logoutBtn.textContent = 'Logout';
+        logoutBtn.onclick = logout;
+        
+        navButtons.appendChild(welcomeSpan);
+        navButtons.appendChild(logoutBtn);
     }
     
     // Store user data for page use

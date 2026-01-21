@@ -11,9 +11,9 @@ var _FVARS =
 
 //, "SECURE_APP_KEY": "JRvaCBEJcy7CDlHxMDyZ"
 , "SECURE_APP_KEY": "ehYzQWxtl62vuPbUjDYU"
-, "SECURE_PATH":    "http://127.0.0.1:55301/client/c01_client-first-app/index.html"
+, "SECURE_PATH":    "http://127.0.0.1:55101/client/c01_client-first-app/index.html"
 , "SECURE_API_URL": "https://secureaccess247.com/api"
-, "LOGIN_PAGE":     "http://127.0.0.1:55301/client/c01_client-first-app/index.html"
+, "LOGIN_PAGE":     "http://127.0.0.1:55101/client/c01_client-first-app/index.html"
 , "LOGIN_SUCCESS":  "https://iodd.com/member-profile.html"
 , "LOGIN_FAILURE":  "https://iodd.com/index.html"
   }

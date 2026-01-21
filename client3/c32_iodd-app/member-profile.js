@@ -97,6 +97,12 @@ class MemberProfileClient {
             subMenu.classList.add('expanded');
             menuElement.classList.remove('collapsed');
             menuElement.classList.add('active');
+            
+            // Auto-click first sub-menu item
+            const firstSubItem = subMenu.querySelector('.sub-menu-item');
+            if (firstSubItem) {
+                firstSubItem.click();
+            }
         }
     }
 

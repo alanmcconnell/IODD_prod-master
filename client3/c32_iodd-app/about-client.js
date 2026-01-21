@@ -172,7 +172,11 @@ function showLoading() {
 
 function showError(error) {
     const container = document.getElementById('about-content');
-    container.innerHTML = `<div class="error">Error loading data: ${error.message}</div>`;
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error';
+    errorDiv.textContent = `Error loading data: ${error.message}`;
+    container.innerHTML = '';
+    container.appendChild(errorDiv);
 }
 
 async function displayAboutContent() {
@@ -188,66 +192,74 @@ async function displayAboutContent() {
             client.fetchLeadership()
         ]);
         
-        // Build the about content
+        // Sanitize stats to prevent XSS
+        const sanitizedStats = {
+            years: parseInt(stats.years) || 0,
+            members: parseInt(stats.members) || 0,
+            projects: parseInt(stats.projects) || 0,
+            industries: parseInt(stats.industries) || 0
+        };
+        
+        // Build the about content with sanitized data
         let content = `
 
             <div class="stats-container">
                 <div class="stat-card">
-                    <div class="stat-number">${stats.years}</div>
+                    <div class="stat-number">${sanitizedStats.years}</div>
                     <div class="stat-label">Years of Excellence</div>
                 </div>
                 <div class="stat-card" id="member-stat-card">
-                    <div class="stat-number">${stats.members}</div>
+                    <div class="stat-number">${sanitizedStats.members}</div>
                     <div class="stat-label">Professional Members</div>
                 </div>
                 <div class="stat-card" id="project-stat-card">
-                    <div class="stat-number">${stats.projects}</div>
+                    <div class="stat-number">${sanitizedStats.projects}</div>
                     <div class="stat-label">Projects Completed</div>
                 </div>
                 <div class="stat-card" id="industry-stat-card">
-                    <div class="stat-number">${stats.industries}</div>
+                    <div class="stat-number">${sanitizedStats.industries}</div>
                     <div class="stat-label">Industries Served</div>
                 </div>
             </div> 
 
             <div class="about-section">
                 <h2>Our Mission</h2>
-                <p>${client.aboutInfo.mission}</p>
+                <p>${escapeHtml(client.aboutInfo.mission)}</p>
             </div>
             
             <div class="about-section">
                 <h2>Our Vision</h2>
-                <p>${client.aboutInfo.vision}</p>
+                <p>${escapeHtml(client.aboutInfo.vision)}</p>
             </div>
             
             <div class="about-section">
                 <h2>Our History</h2>
-                <p>${client.aboutInfo.history}</p>
+                <p>${escapeHtml(client.aboutInfo.history)}</p>
             </div>
             
             <div class="about-section">
                 <h2>Our Expertise</h2>
                 <p>At IODD, we specialize in:</p>
                 <ul style="margin-left: 20px; margin-bottom: 15px;">
-                    ${client.aboutInfo.expertise.map(item => `<li>${item}</li>`).join('')}
+                    ${client.aboutInfo.expertise.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
                 </ul>
             </div>
             
 <!--        <div class="stats-container">
                 <div class="stat-card">
-                    <div class="stat-number">${stats.years}</div>
+                    <div class="stat-number">${sanitizedStats.years}</div>
                     <div class="stat-label">Years of Excellence</div>
                 </div>
                 <div class="stat-card" id="member-stat-card">
-                    <div class="stat-number">${stats.members}</div>
+                    <div class="stat-number">${sanitizedStats.members}</div>
                     <div class="stat-label">Professional Members</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">${stats.projects}</div>
+                    <div class="stat-number">${sanitizedStats.projects}</div>
                     <div class="stat-label">Projects Completed</div>
                 </div>
                 <div class="stat-card" id="industry-stat-card">
-                    <div class="stat-number">${stats.industries}</div>
+                    <div class="stat-number">${sanitizedStats.industries}</div>
                     <div class="stat-label">Industries Served</div>
                 </div>
             </div> -->
@@ -262,6 +274,13 @@ async function displayAboutContent() {
     } catch (error) {
         showError(error);
     }
+}
+
+// Helper function to escape HTML and prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 function animateStats() {

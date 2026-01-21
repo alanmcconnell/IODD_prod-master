@@ -19,5 +19,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "dependencies": {
+        "express-rate-limit": "^8.2.1"
     }
 }

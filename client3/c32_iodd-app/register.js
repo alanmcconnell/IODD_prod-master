@@ -2,7 +2,7 @@
 
 class Registration {
     constructor() {
-        this.apiBaseUrl = window.fvaRs?.SERVER_API_URL || 'http://localhost:54382/api2';
+        this.apiBaseUrl = window.FVARS?.SERVER_API_URL || 'https://localhost:54182/api2';
         this.init();
     }
 
@@ -26,14 +26,19 @@ class Registration {
         if (registrationForm) {
             registrationForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                this.submitRegistration();
+                // Verify this is a trusted event from user interaction
+                if (e.isTrusted) {
+                    this.submitRegistration();
+                }
             });
         }
     }
 
     cancelRegistration() {
-        // Return user to index.html
-        window.location.href = 'index.html';
+        // Verify navigation is from trusted user action
+        if (event && event.isTrusted) {
+            window.location.href = 'index.html';
+        }
     }
 
     async submitRegistration() {
@@ -43,8 +48,8 @@ class Registration {
             const validation = this.validateFormData(formData);
             
             if (!validation.valid) {
-                alert(validation.message);
-                return;
+                acm_SecurePopUp(validation.message, "OK:ok");
+                return ;
             }
             
             console.log('Sending registration to:', `${this.apiBaseUrl}/register`);
@@ -56,6 +61,7 @@ class Registration {
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                credentials: 'same-origin',
                 body: JSON.stringify(formData)
             });
             
@@ -83,7 +89,8 @@ class Registration {
             }
         } catch (error) {
             console.error('Registration error:', error);
-            alert(`Registration failed: ${error.message}`);
+            //alert(`Registration failed: ${error.message}`);
+            acm_SecurePopUp(`Registration failed: ${error.message}`,"OK:ok");
         }
     }
     

@@ -1,4 +1,4 @@
-const JWT_API_BASE = window.fvaRs?.SERVER_API_URL ? `${window.FVARS.SERVER_API_URL}/jwt` : 'http://localhost:54382/api2/jwt';
+const JWT_API_BASE = window.FVARS?.SERVER_API_URL ? `${window.FVARS.SERVER_API_URL}/jwt` : 'http://localhost:54182/api2/jwt';
 
 async function acmJWTCreate(payload = {}) {
     try {

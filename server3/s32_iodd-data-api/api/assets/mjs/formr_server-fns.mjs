@@ -127,6 +127,7 @@
    import   killport        from  'kill-port'                                                               // .(50707.05.x)
    import   cssjson         from  'cssjson';                                                                // .(30402.02.5)
    import   cors            from  'cors';
+   import   path            from  'path';
 // import   fs              from  'fs'
 
    import { getEnv_sync, __dirname, __appDir, traceR, aOS }  from  './formr_utility-fns.mjs'                // .(30410.02.1).(30410.03.1 Add setAPI_URL).(30412.02.10).(30416.02.3).(30416.03.3)
@@ -752,7 +753,7 @@
 
 //          ---------  =  ----------------------------------------------------------
 
-       var  aEnv_File  =  `${__appDir.replace('/api', '')}/.env`; // Correct path to .env file             // .(30322.03.1 Beg RAM Set different var).(30416.03.5)
+       var  aEnv_File  =  path.resolve(__appDir, '../.env'); // Correct path to .env file             // .(30322.03.1 Beg RAM Set different var).(30416.03.5)
             console.log( `formr_server-fns aEnv_File: '${aEnv_File }'`)
 
 //          process.env=  await getEnv( `${aEnv_Dir}/.env` )                                                // .(30222.01.2 RAM Get it myself).(30322.03.1 End).(30410.03.4 RAM await)
@@ -761,15 +762,10 @@
             bQuiet     =  setVar1( 'Quiet', bQuiet_, true )   // Override value in .env
             bQuiet     =  bQuiet ?  true :  false;            // console.log( `bQuiet:        ${bQuiet}`   );  process.exit()
 //                                     
-                          setVar2( 'DB_Host',     '92.112.184.206', 'host' )                                // .(5070708.01.RAM Set from process.env or default. Look in pDB_Config too)
-                          setVar2( 'DB_User',     'iodd-user'   , 'user' )
-                          setVar2( 'DB_Password', 'RcOElFWqqHG2sToZJyzI', 'password' )
-                          setVar2( 'DB_Database', 'iodd2'       , 'database' )                              // .(30320.06.1 RAM Opps )
-
-                         console.log( `pDB_Config.host:     ${pDB_Config.host}` )
-                         console.log( `pDB_Config.user:     ${pDB_Config.user}` )
-                         console.log( `pDB_Config.password: ${pDB_Config.password}` )
-                         console.log( `pDB_Config.database: ${pDB_Config.database}` )
+                          setVar2( 'DB_Host',     '', 'host' )
+                          setVar2( 'DB_User',     '', 'user' )
+                          setVar2( 'DB_Password', '', 'password' )
+                          setVar2( 'DB_Database', '', 'database' )
 
 //          pDB  =  await mysql.createPool( pDB_Config ? pDB_Config : pDB_Config )
        var  pDB        =  mysql.createPool( pDB_Config )                                                    //

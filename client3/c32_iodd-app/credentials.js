@@ -79,7 +79,7 @@ async function processCredentials(authToken) {
         }
         
         // Get API URL from config
-        const apiUrl = window.FVARS?.SERVER_API_URL || 'http://localhost:54382/api2';
+        const apiUrl = window.FVARS?.SERVER_API_URL || 'http://localhost:54182/api2';
         
         // Fetch member data
         const memberResponse = await fetch(`${apiUrl}/members?email=${encodeURIComponent(email)}`);

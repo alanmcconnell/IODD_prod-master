@@ -118,6 +118,21 @@
     import { getEnv_sync, __dirname                           } from './assets/mjs/formr_utility-fns.mjs'   // .(50706.03.1 RAM Gotta doit here).(30410.02.1).(30410.03.1 Add setAPI_URL).(30412.02.10).(30416.02.3).(30416.03.3)
     import   path from 'path';
 
+    // Disable console.log in production
+    if (process.env.NODE_ENV === 'production') {
+        console.log = function() {};
+    }
+    
+    // Global error handler for uncaught exceptions
+    process.on('uncaughtException', (error) => {
+        console.error('Uncaught Exception:', error);
+        process.exit(1);
+    });
+    
+    process.on('unhandledRejection', (reason, promise) => {
+        console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    });
+
     import { chkArgs, sndHTML, getData, sndRecs, sndFile      } from './assets/mjs/formr_server-fns.mjs';   // .(50702.02.1).(30403.04.3 RAM Add sndFile)
     import { init, start, setRoute, sayMsg, sndErr            } from './assets/mjs/formr_server-fns.mjs';   // .(50702.02.2).(30327.01.1 RAM)
 //  import { getHTML, getStyles,  getJSON,  indexObj, logIP   } from './assets/mjs/formr_server-fns.mjs';   //#.(30402.02.4 RAM).(30402.04.5).(30526.02.4).(30527.02.1)
@@ -148,7 +163,7 @@
        var  isWindows  =  aPlatform === 'win32';
        var  isMac      =  aPlatform === 'darwin';
 
-       var  aEnv_File  =  path.resolve(__dirname, '../../../.env'); // Absolute path to .env file
+       var  aEnv_File  =  path.resolve(__appDir, '../.env'); // Absolute path to .env file
             console.log( ` Platform: '${aPlatform}' (Windows: ${isWindows}, Mac: ${isMac})`)
             console.log( `aEnv_File: '${aEnv_File }'`)
             console.log( `__dirname: '${__dirname}'`)

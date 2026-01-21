@@ -1,12 +1,13 @@
 const mysql = require('mysql');
+require('dotenv').config({ path: require('path').join(__dirname, '../.env') });
 
-// Create MySQL connection
+// Create MySQL connection from environment variables
 const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'nimdas',
-  password: 'FormR!1234',
-  database: 'iodd'
+  host: process.env.DB_Host,
+  port: process.env.DB_Port,
+  user: process.env.DB_User,
+  password: process.env.DB_Password,
+  database: process.env.DB_Database
 });
 
 // Handler for industry count endpoint

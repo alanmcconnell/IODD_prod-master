@@ -6,8 +6,15 @@ class MemberBiosClient {
     }
 
     async fetchData(endpoint) {
+        // Validate endpoint to prevent SSRF
+        const allowedEndpoints = ['/webpage_members_bio_view'];
+        if (!allowedEndpoints.includes(endpoint)) {
+            throw new Error('Invalid endpoint');
+        }
         try {
-            const response = await fetch(`${this.baseUrl}${endpoint}`);
+            const response = await fetch(`${this.baseUrl}${endpoint}`, {
+                credentials: 'same-origin'
+            });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -40,7 +47,11 @@ function showLoading() {
 
 function showError(error) {
     const container = document.getElementById('data-display');
-    container.innerHTML = `<div class="error">Error loading data: ${error.message}</div>`;
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error';
+    errorDiv.textContent = `Error loading data: ${error.message}`;
+    container.innerHTML = '';
+    container.appendChild(errorDiv);
 }
 
 
@@ -99,7 +110,28 @@ function displayMembersBios(data) {
     membersGrid.className = 'members-grid';
     
     members.forEach((member, index) => {
-        membersGrid.innerHTML += createMemberCard(member, index);
+        const fullName = `${member.FirstName || ''} ${member.LastName || ''}`.trim();
+        const bio = member.BIO || 'No bio available';
+        
+        const card = document.createElement('div');
+        card.className = 'member-card';
+        card.id = `card-${index}`;
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'member-name';
+        nameDiv.textContent = fullName;
+        
+        const bioSection = document.createElement('div');
+        bioSection.className = 'bio-section';
+        
+        const bioText = document.createElement('div');
+        bioText.className = 'bio-text';
+        bioText.textContent = bio;
+        
+        bioSection.appendChild(bioText);
+        card.appendChild(nameDiv);
+        card.appendChild(bioSection);
+        membersGrid.appendChild(card);
     });
 
     container.innerHTML = '';

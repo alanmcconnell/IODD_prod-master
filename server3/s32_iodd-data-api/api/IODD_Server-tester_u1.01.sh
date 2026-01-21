@@ -16,7 +16,7 @@
   echo ""
   exit 
   }
-            aRepo=$1
+            aRepo="${1:-}"
    if [  "${aRepo}" == "prod0"        ]; then aHost="https://iodd.com:3013/api2";   fi 
    if [  "${aRepo}" == "prod0-master" ]; then aHost="https://iodd.com:3013/api2";   fi 
 #  if [  "${aRepo}" == "prod0-master" ]; then aHost="https://iodd.com:54032/api12"; fi 
@@ -30,7 +30,7 @@
    if [  "${aRepo}" == "test1-robin"  ]; then aHost="https://iodd.com/test1-robin/api12"; fi 
 
 
-   if [ "${aHost}" == "" ]; then help $1; fi 
+   if [ -z "${aHost}" ]; then help "$1"; exit 1; fi 
   
     echo "" 
     echo "Testing IODD App Database API: '${aHost}'"

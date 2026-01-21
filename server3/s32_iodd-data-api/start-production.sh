@@ -30,7 +30,10 @@ if [ ! -f ".env" ]; then
 fi
 
 # Load environment variables
-export $(grep -v '^#' .env | xargs)
+if ! export $(grep -v '^#' .env | xargs); then
+    echo "ERROR: Failed to load environment variables from .env"
+    exit 1
+fi
 
 # Verify NODE_ENV is set to production
 if [ "$NODE_ENV" != "production" ]; then
@@ -67,7 +70,7 @@ fi
 # Test database connection
 echo "Testing database connection..."
 if command -v mysql &> /dev/null; then
-    if mysql -h "$DB_Host" -P "$DB_Port" -u "$DB_User" -p"$DB_Password" -e "USE $DB_Database; SELECT 1;" &> /dev/null; then
+    if mysql -h "$DB_Host" -P "${DB_Port:-3306}" -u "$DB_User" -p"$DB_Password" -e "USE $DB_Database; SELECT 1;" &> /dev/null; then
         echo "✓ Database connection successful"
     else
         echo "ERROR: Cannot connect to database"
@@ -78,10 +81,14 @@ else
 fi
 
 # Check if port is available
-if lsof -Pi :$Server_Port -sTCP:LISTEN -t >/dev/null 2>&1; then
-    echo "ERROR: Port $Server_Port is already in use"
-    echo "Kill the process with: kill \$(lsof -t -i:$Server_Port)"
-    exit 1
+if command -v lsof &> /dev/null; then
+    if lsof -Pi :$Server_Port -sTCP:LISTEN -t >/dev/null 2>&1; then
+        echo "ERROR: Port $Server_Port is already in use"
+        echo "Kill the process with: kill \$(lsof -t -i:$Server_Port)"
+        exit 1
+    fi
+else
+    echo "WARNING: lsof not installed, skipping port availability check"
 fi
 
 # Install dependencies if node_modules doesn't exist
@@ -105,13 +112,17 @@ echo ""
 # Start application with PM2
 if command -v pm2 &> /dev/null; then
     echo "Starting application with PM2..."
-    pm2 start api/IODD-Server_u1.08.mjs --name iodd-api --env production
-    pm2 save
-    echo ""
-    echo "Application started successfully!"
-    echo "View logs with: pm2 logs iodd-api"
-    echo "Monitor with: pm2 monit"
-    echo "Stop with: pm2 stop iodd-api"
+    if pm2 start api/IODD-Server_u1.08.mjs --name iodd-api --env production; then
+        pm2 save
+        echo ""
+        echo "Application started successfully!"
+        echo "View logs with: pm2 logs iodd-api"
+        echo "Monitor with: pm2 monit"
+        echo "Stop with: pm2 stop iodd-api"
+    else
+        echo "ERROR: Failed to start application with PM2"
+        exit 1
+    fi
 else
     echo "PM2 not installed. Starting with Node.js..."
     echo "For production, install PM2: npm install -g pm2"

@@ -1,6 +1,9 @@
 .env
+_config.js
+_config.yaml.js
 .amazonq*
 archive
+logs
 node_modules
 *_v[0-9]*
 *_t[0-9]*

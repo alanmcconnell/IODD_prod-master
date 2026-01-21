@@ -133,13 +133,17 @@ async function  setAPI_URL( pEnv,  aNum ) {                                     
         } else {
 //     var  pFS     =  await import( 'fs' )                                                                 //#.(30412.01.4)
        if (!aFile) { aFile = `${ aPath }.env` }  // Use provided file path or construct default
-       // aFile is now set - use it as is
+       // Sanitize aFile to prevent path traversal
+       var aRealPath = path.resolve(aFile);
+       var aAllowedDir = path.resolve(__appDir, '..');  // Allow parent directory for .env file
+       if (!aRealPath.startsWith(aAllowedDir)) { sayEnvErr(aFile); return process.env; }
+       aFile = aRealPath;
 //     var  pFS     =  await import( 'fs/promises' )                                                        // .(30412.01.2 RAM Get pFS above so this function doesn't have to be a async function)
 //         console.log( `getEnv_sync[2]        Reading local file, '${aFile}'` )
        if (!pFS.default.existsSync( aFile )) {                                                              // .(51123.02.2 Check .env-local.env or remote file Beg)
         var aRemote = `${process.env.THE_SERVER}`.match( /formr/i ) ? 'remote' : 'local'
             aRemote =   (process.FVARS.SERVER_LOCATION || '').toLowerCase()=='remote' ? 'remote' : aRemote  // .(51124.05.1 RAM Another override)
-        var aFile2  = path.join( aFile.replace( /\.env/, '' ), `api/.env-${aRemote}.env` )
+        var aFile2  = path.resolve(__appDir, `api/.env-${aRemote}.env`)
         if (pFS.default.existsSync( aFile2 )) {                                                            
             pFS.default.copyFileSync( aFile2, aFile )                                                       // .(51123.02.2 RAM Copy .env-local.env or .env-remote.env to .env)
                console.log( ` * Copied: '${aFile2}'\n       to: '${aFile}'` )

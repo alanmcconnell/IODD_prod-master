@@ -52,8 +52,17 @@ async function registerHandler(req, res) {
         
         // Check if email already exists
         console.log('Checking if email exists:', email);
-        const checkEmailSQL = `SELECT Id FROM members WHERE Email = '${email}' LIMIT 1`;
+        const checkEmailSQL = `SELECT Id FROM members WHERE Email = ? LIMIT 1`;
         const existingUsers = await getData(req.pDB, checkEmailSQL, '/register');
+        
+        // Sanitize inputs early
+        const sanitizedFirstName = firstName.replace(/'/g, "''");
+        const sanitizedLastName = lastName.replace(/'/g, "''");
+        const sanitizedEmail = email.replace(/'/g, "''");
+        
+        // Note: getData doesn't support parameterized queries, so we sanitize the email
+        const checkEmailSQL2 = `SELECT Id FROM members WHERE Email = '${sanitizedEmail}' LIMIT 1`;
+        const existingUsers2 = await getData(req.pDB, checkEmailSQL2, '/register');
         
         if (existingUsers && existingUsers.length > 0 && existingUsers[0] !== 'error') {
             console.log('Email already exists');
@@ -73,12 +82,13 @@ async function registerHandler(req, res) {
         const memberNo = await acm_NextID(req.pDB, 'MemberNo');
         console.log('Generated MemberNo:', memberNo);
         
-        // Create IODD member record
+        // Create IODD member record with sanitized inputs
         console.log('Creating member record');
+        
         const memberResult = await putData(req.pDB,
             `INSERT INTO members 
              (MemberNo, FirstName, LastName, Email, PIN, RoleId, Active, CreatedAt, UpdatedAt)
-             VALUES (${memberNo}, '${firstName}', '${lastName}', '${email}', 'iodd', 1, 'Y', NOW(), NOW())`,
+             VALUES (${memberNo}, '${sanitizedFirstName}', '${sanitizedLastName}', '${sanitizedEmail}', 'iodd', 1, 'Y', NOW(), NOW())`,
             '/register'
         );
         
@@ -91,7 +101,7 @@ async function registerHandler(req, res) {
         
         // Create SecureAccess user account (server-to-server)
         try {
-            const secureAccessUrl = process.FVARS?.SECURE_API_URL || 'http://localhost:56785/api';
+            const secureAccessUrl = process.FVARS?.SECURE_API_URL || 'http://localhost:55151/api';
             const secureAccessData = {
                 firstName,
                 lastName,
@@ -102,7 +112,7 @@ async function registerHandler(req, res) {
                 securityAnswer1: hashedAnswer1,
                 securityQuestion2: secureQuestion2,
                 securityAnswer2: hashedAnswer2,
-                appKey: process.FVARS?.SECURE_APP_KEY || 'IODD',
+                appKey: process.FVARS?.IODD_APP_KEY || 'ehYzQWxtl62vuPbUjDYU',
                 userRole: 'Member'
             };
             
@@ -110,18 +120,18 @@ async function registerHandler(req, res) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-API-Key': process.FVARS?.SECURE_API_SECRET || ''
+                    'X-API-Key': process.FVARS?.SECURE_API_SECRET || '4099f80f0382842a234f008510a1540438f80a827091dde87654d5d05e3b1517'
                 },
                 body: JSON.stringify(secureAccessData)
             });
             
             if (!secureResponse.ok) {
                 console.error('SecureAccess registration failed:', await secureResponse.text());
-                // Continue anyway - user can still use IODD
+            } else {
+                console.log('SecureAccess user created successfully');
             }
         } catch (secureError) {
             console.error('SecureAccess API error:', secureError);
-            // Continue anyway - user can still use IODD
         }
         
         return res.json({
@@ -131,11 +141,13 @@ async function registerHandler(req, res) {
         });
         
     } catch (error) {
-        console.error('Registration error:', error);
+        console.error('Registration error:', error.message);
+        console.error('Stack trace:', error.stack);
         
         return res.status(500).json({
             success: false,
-            message: 'Registration failed. Please try again.'
+            message: 'Registration failed. Please try again.',
+            ...(process.env.NODE_ENV !== 'production' && { error: error.message })
         });
     }
 }

@@ -10,10 +10,10 @@ var _FVARS =
 , "SERVER_LOCATION":"Local"
 
 , "SECURE_APP_KEY": "ehYzQWxtl62vuPbUjDYU"
-, "SECURE_PATH":    "http://127.0.0.1:55301/client/c01_client-first-app/index.html"
-, "SECURE_API_URL": "https://secureaccess247.com/api"
+, "SECURE_PATH":    "http://127.0.0.1:55101/client/c01_client-first-app/index.html"
+, "SECURE_API_URL": "http://localhost:55151/api"
 , "SECURE_API_SECRET": "4099f80f0382842a234f008510a1540438f80a827091dde87654d5d05e3b1517"
-, "LOGIN_PAGE":     "http://127.0.0.1:55301/client/c01_client-first-app/index.html"
+, "LOGIN_PAGE":     "http://127.0.0.1:55101/client/c01_client-first-app/index.html"
 , "LOGIN_SUCCESS":  "https://iodd.com/member-profile.html"
 , "LOGIN_FAILURE":  "https://iodd.com/index.html"
   }
