@@ -216,8 +216,10 @@
 
      // Extract just the path portion for Express routes
         var aAPI_Path     =  aAPI_URL.startsWith('http') ? new URL(aAPI_URL).pathname : aAPI_URL                                 // .(50918.05.1 CAI Create API_Path as /api2/)
+            console.error(`DEBUG: aAPI_URL='${aAPI_URL}', aAPI_Path='${aAPI_Path}'`);
 //   global.aAPI_Host     =  aAPI_URL                                                   //#.(50918.05.2 CAI Not full URL)
      global.aAPI_Host     =  aAPI_Path                                                  // .(50918.05.2 CAI Use API_Path as /api2)
+            console.error(`DEBUG: global.aAPI_Host='${global.aAPI_Host}'`);
 //     var  aAPI_Host     = `${aRemote_Host}${aAPI_URL}`                                //#.(50707.02.5 RAM Wrong) 
      global.aRemote_Host  =  aRemote_Host                                               // .(50707.02.1 RAM Needed in formr_server-fns.start)
      global.aPlatform     =  aPlatform                                                  // Make platform info globally available
@@ -247,6 +249,7 @@
 
   function  IODD ( ) {
 
+       console.error(`DEBUG IODD constructor: global.aAPI_Host='${global.aAPI_Host}'`);
        var  pApp, pDB, aAPI_Host          // Doesn't work for bQuiet, because it is not used in this module
        var  pApp  =  express()                                                          // .(30406.02.2 RAM pApp is now local to IODD)
 
@@ -263,12 +266,6 @@
            origin: true,   
            credentials: true,
            methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-       }));
-       
-       // Handle preflight requests
-       pApp.options('*', cors({
-           origin: true,
-           credentials: true
        }));
        
        // Security headers
@@ -288,7 +285,11 @@
        pApp.use(express.urlencoded({ extended: true }));
        
        // Apply rate limiting to all API routes
-       pApp.use(global.aAPI_Host, rateLimiter);
+       if (global.aAPI_Host && typeof global.aAPI_Host === 'string' && global.aAPI_Host.startsWith('/')) {
+           pApp.use(global.aAPI_Host, rateLimiter);
+       } else {
+           pApp.use(rateLimiter);
+       }
 
        var  pDB_Config= {                                                               // .(30412.02.13 RAM Override it here??)
             host:     process.env.DB_HOST,

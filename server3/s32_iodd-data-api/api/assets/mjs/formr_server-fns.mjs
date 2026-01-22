@@ -476,12 +476,12 @@
 //  ------  ---- ----- =  ------|  -------------------------------- ------------------- ------------------+
 
   function  chkArgs( pReq, pRes, pValidArgs ) {
-         if (Object.keys(  pReq.body).length == 0 && pReq.method != 'GET') {                                // .(30424.09.x RAM Beg)
+         if (pReq.body && Object.keys(pReq.body).length == 0 && pReq.method != 'GET') {                      // .(30424.09.x RAM Beg)
                            sndErr( pRes,   '** Request Body/Query is empty' )                               // .(30526.01.16)
                            sayErr(       '  ** Request Body/Query is empty\n' )                             // .(30402.05.7).(30526.01.17)
     return  null
             }                                                                                               // .(30429.09.x End)
-       var  pArgs_ = { ...pReq.body, ...pReq.query }, mErrArgs = []                                         // .(30403.02.3 RAM pReq.query overrides pReq.body)
+       var  pArgs_ = { ...(pReq.body || {}), ...(pReq.query || {}) }, mErrArgs = []                         // .(30403.02.3 RAM pReq.query overrides pReq.body)
        if (!pValidArgs) {
     return  pArgs // pReq.query                                                                             // .(30318.01.1 RAM S.It.B {} ??).(30403.02.4)
        } else {
@@ -547,7 +547,7 @@
                           pRes.redirect( '/api2' )
             } )
 */
-       pApp.use( '*', function( pReq, pRes ) {
+       pApp.use( function( pReq, pRes ) {
                           console.log( `DEBUG: Catch-all route hit for: ${pReq.method} ${pReq.url}` )      // DEBUG: Add logging
                           var errorResponse = { error: `${aMsg}: ${pReq.url}` };
                           pRes.setHeader( 'Content-Type', 'application/json' );

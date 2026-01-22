@@ -175,7 +175,7 @@ async function loadMembersList() {
 async function testServerConnection() {
     try {
         const response = await fetch(`${window.FVARS.SERVER_API_URL}/`);
-        return response.status === 200;
+        return response.ok; // Accept any 2xx status
     } catch (error) {
         console.error('Server connection failed:', error);
         showServerUnavailableMessage();
