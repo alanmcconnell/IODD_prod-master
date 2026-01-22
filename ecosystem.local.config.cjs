@@ -14,8 +14,8 @@ module.exports = {
       env: {
         NODE_ENV: 'production'
       },
-      error_file: '/users/shared/reepos/._/LOGs/iodd/iodd-s54182_error.log',
-      out_file: '/users/shared/reepos/._/LOGs/iodd/iodd-s54182_out.log',
+      error_file: '/Users/Shared/repos/IODD_prod-master/logs/iodd-s54182_error.log',
+      out_file: '/Users/Shared/repos/IODD_prod-master/logs/iodd-s54182_out.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
       merge_logs: true,
       time: true
@@ -37,8 +37,8 @@ module.exports = {
       env: {
         NODE_ENV: 'production'
       },
-      error_file: '/users/shared/reepos/._/logs/iodd-c54132_error.log',
-      out_file: '/users/shared/reepos/._/logs/iodd-c54132_out.log',
+      error_file: '/Users/Shared/repos/IODD_prod-master/logs/iodd-c54132_error.log',
+      out_file: '/Users/Shared/repos/IODD_prod-master/logs/iodd-c54132_out.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
       merge_logs: true,
       time: true

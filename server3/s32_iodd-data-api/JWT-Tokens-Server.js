@@ -1,11 +1,17 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
-const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
+let JWT_SECRET;
 const JWT_EXPIRY = '1h';
 
-if (!process.env.JWT_SECRET) {
-    console.warn('WARNING: JWT_SECRET not set in environment variables. Using random secret (will change on restart).');
+function getJWTSecret() {
+    if (!JWT_SECRET) {
+        JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
+        if (!process.env.JWT_SECRET) {
+            console.warn('WARNING: JWT_SECRET not set in environment variables. Using random secret (will change on restart).');
+        }
+    }
+    return JWT_SECRET;
 }
 
 export function acmJWTCreate(payload = {}) {
@@ -21,7 +27,7 @@ export function acmJWTCreate(payload = {}) {
             ...payload
         };
         
-        return jwt.sign(tokenPayload, JWT_SECRET, { algorithm: 'HS256' });
+        return jwt.sign(tokenPayload, getJWTSecret(), { algorithm: 'HS256' });
     } catch (error) {
         throw new Error('Token creation failed: ' + error.message);
     }
@@ -29,7 +35,7 @@ export function acmJWTCreate(payload = {}) {
 
 export function acmJWTPost(token, key, value) {
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token, getJWTSecret());
         
         const allowedKeys = ['user_no', 'user_name', 'user_email', 'user_role'];
         if (!allowedKeys.includes(key)) {
@@ -53,7 +59,7 @@ export function acmJWTPost(token, key, value) {
 
 export function acmJWTFetch(token, key) {
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token, getJWTSecret());
         
         const allowedKeys = ['user_no', 'user_name', 'user_email', 'user_role', 'name'];
         if (!allowedKeys.includes(key)) {
@@ -68,7 +74,7 @@ export function acmJWTFetch(token, key) {
 
 export function acmJWTVerify(token) {
     try {
-        return jwt.verify(token, JWT_SECRET);
+        return jwt.verify(token, getJWTSecret());
     } catch (error) {
         throw new Error('Token verification failed: ' + error.message);
     }

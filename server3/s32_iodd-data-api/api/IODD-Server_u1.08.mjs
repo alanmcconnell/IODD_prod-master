@@ -169,7 +169,8 @@
             console.log( `__dirname: '${__dirname}'`)
 
 //          process.env=  await getEnv( `${aEnv_Dir}/.env` )
-            process.env=  getEnv_sync(  aEnv_File ); // var pEnv = process.env                              // .(50706.03.3).(30222.01.2 RAM Get it myself).(30322.03.1 End).(30412.01.9 RAM no await)
+            const envVars = getEnv_sync(aEnv_File);
+            Object.assign(process.env, envVars); // Merge instead of replace                              // .(50706.03.3).(30222.01.2 RAM Get it myself).(30322.03.1 End).(30412.01.9 RAM no await)
 
 //          console.log( `Hello: process.argv[1]: '${process.argv[1]}'` ); //process.exit()
 //      if (process.argv[1].replace( /.*[\\/]/, '' ).match( /IODD.*\.mjs/ )) {
