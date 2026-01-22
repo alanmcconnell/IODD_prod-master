@@ -3,14 +3,7 @@
  * Get comprehensive member information including bio, skills, and projects
  */
 
-import mysql from 'mysql2/promise';
-
 async function memberResumeHandler(req, res) {
-    // Enable CORS for external access
-    //res.setHeader('Access-Control-Allow-Origin', '*');
-    //res.setHeader('Access-Control-Allow-Methods', 'GET');
-    //res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    
     try {
         const { email } = req.query;
         
@@ -21,19 +14,17 @@ async function memberResumeHandler(req, res) {
             });
         }
 
-        // Create database connection
-        const pool = mysql.createPool({
-            host: process.env.DB_Host,
-            user: process.env.DB_User,
-            password: process.env.DB_Password,
-            database: process.env.DB_Database,
-            waitForConnections: true,
-            connectionLimit: 10,
-            queueLimit: 0
-        });
+        // Use the database connection passed from the main server
+        const pDB = req.pDB;
+        if (!pDB) {
+            return res.status(500).json({
+                success: false,
+                message: 'Database connection not available'
+            });
+        }
 
         // Get member information
-        const [memberRows] = await pool.execute(
+        const [memberRows] = await pDB.execute(
             'SELECT MemberNo, TitleName, FirstName, LastName, Email, Company, Address1, Address2, City, State, Zip, Country, Phone1, Phone2, WebSite FROM members WHERE Email = ?',
             [email]
         );
@@ -46,19 +37,25 @@ async function memberResumeHandler(req, res) {
         }
 
         // Get member bio
-        const [bioRows] = await pool.execute(
+        const [bioRows] = await pDB.execute(
             'SELECT Bio FROM members WHERE Email = ?',
             [email]
         );
 
         // Get member skills
-        const [skillsRows] = await pool.execute(
+        const [skillsRows] = await pDB.execute(
             'SELECT Skills FROM members WHERE Email = ?',
             [email]
         );
 
+        //Get project count
+        const [projectcount] = await pDB.execute(
+            'SELECT Count(projects.Id) as TheCnnt FROM members, projects, members_projects WHERE members.Email = ? AND members.MemberNo = members_projects.MemberNo AND members_projects.ProjectId = projects.Id',
+            [email]
+        )
+
         // Get member projects
-        const [projectRows] = await pool.execute(
+        const [projectRows] = await pDB.execute(
             'SELECT projects.Name, projects.Client, projects.ClientWeb, projects.ProjectWeb, projects.Location, projects.ProjectType, projects.Industry, projects.Description, members_projects.Role, members_projects.Duration, members_projects.Dates FROM projects, members_projects, members WHERE members.Email = ? AND members.MemberNo = members_projects.MemberNo AND members_projects.ProjectId = projects.Id',
             [email]
         );
@@ -110,6 +107,8 @@ async function memberResumeHandler(req, res) {
             separator2: '####################',
             memberSkills: stripRichText(skillsRows[0]?.Skills || ''),
             separator3: '####################',
+            memberProjectCount: projectcount[0]?.TheCnnt || 0,
+            separator4: '####################',
             memberProjects: projectRows
         };
 

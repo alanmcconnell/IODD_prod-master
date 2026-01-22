@@ -837,7 +837,10 @@ this.PKCEAuth_getRoute = async function() {
     pApp.post(`${global.aAPI_Host}/role`, rolesHandler);
     pApp.delete(`${global.aAPI_Host}/role`, rolesHandler);
     pApp.get(`${global.aAPI_Host}/role-usage`, roleUsageHandler);
-    pApp.get(`${global.aAPI_Host}/member-resume`, memberResumeHandler);
+    pApp.get(`${global.aAPI_Host}/member-resume`, async (req, res) => {
+        req.pDB = pDB;
+        await memberResumeHandler(req, res);
+    });
     
     // Add acm_NextID endpoint
     pApp.post(`${global.aAPI_Host}/nextid`, async (req, res) => {

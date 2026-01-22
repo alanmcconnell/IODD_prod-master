@@ -14,8 +14,8 @@ module.exports = {
       env: {
         NODE_ENV: 'production'
       },
-      error_file: './logs/pm2-error.log',
-      out_file: './logs/pm2-out.log',
+      error_file: '/webs/iodd/logs/iodd-s54182_error.log',
+      out_file: '/webs/iodd/logs/iodd-s54182_out.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
       merge_logs: true,
       time: true
@@ -37,8 +37,8 @@ module.exports = {
       env: {
         NODE_ENV: 'production'
       },
-      error_file: './logs/pm2-error.log',
-      out_file: './logs/pm2-out.log',
+      error_file: '/webs/iodd/logs/iodd-c54132_error.log',
+      out_file: '/webs/iodd/logs/iodd-c54132_out.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
       merge_logs: true,
       time: true
