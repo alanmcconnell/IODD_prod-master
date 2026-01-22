@@ -292,13 +292,18 @@
            pApp.use(rateLimiter);
        }
 
-       var  pDB_Config= {                                                               // .(30412.02.13 RAM Override it here??)
+       var  pDB_Config= {
             host:     process.env.DB_HOST,
             user:     process.env.DB_USER, 
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME,
-            port:     process.env.DB_PORT
+            port:     parseInt(process.env.DB_PORT) || 3306,
+            connectTimeout: 60000,
+            waitForConnections: true,
+            connectionLimit: 10,
+            queueLimit: 0
         }
+        console.error('DEBUG DB Config:', { host: pDB_Config.host, port: pDB_Config.port, database: pDB_Config.database, user: pDB_Config.user });
 
 //  ------  ---- ----- =  ------|  -------------------------------- -------------------
 
