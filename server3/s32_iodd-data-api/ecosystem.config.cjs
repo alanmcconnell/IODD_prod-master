@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'iodd-api',
+      name: 'iodd-s54182',
       script: './server.mjs',
       cwd: '/webs/iodd/server3/s32_iodd-data-api',
       instances: 1,
@@ -22,7 +22,7 @@ module.exports = {
     },
     
     {
-      name: 'iodd-client',
+      name: 'iodd-c54132',
       script: 'npx',
       args: 'http-server -c-1 -p 54132',
       cwd: '/webs/iodd/client3/c32_iodd-app',
