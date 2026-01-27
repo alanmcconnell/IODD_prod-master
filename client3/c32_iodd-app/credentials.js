@@ -49,6 +49,9 @@ sessionStorage.setItem('credentials_processing', 'true');
         if (!authToken) {
             document.querySelector('.message').textContent = 'No auth token found from SecureAccess';
             sessionStorage.removeItem('credentials_processing');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
             return;
         }
         
@@ -103,12 +106,8 @@ async function processCredentials(authToken) {
             throw new Error('Member data incomplete');
         }
         
-        // Fetch role data
-        let roleResponse = await fetch(`${apiUrl}/roles?id=${member.RoleId}`);
-        
-        if (!roleResponse.ok) {
-            roleResponse = await fetch(`${apiUrl}/roles/${member.RoleId}`);
-        }
+        // Fetch role data from roles endpoint
+        const roleResponse = await fetch(`${apiUrl}/roles`);
         
         if (!roleResponse.ok) {
             throw new Error('Failed to fetch role data');
@@ -116,23 +115,14 @@ async function processCredentials(authToken) {
         
         const roleData = await roleResponse.json();
         
-        // Handle different response formats - find role by ID
-        let role;
-        if (roleData.roles && Array.isArray(roleData.roles)) {
-            role = roleData.roles.find(r => r.Id == member.RoleId);
-        } else if (Array.isArray(roleData)) {
-            role = roleData.find(r => r.Id == member.RoleId);
-        } else {
-            role = roleData;
-        }
+        // Find role by matching member.RoleId with role.Id
+        const role = roleData.roles.find(r => r.Id == member.RoleId);
         
         if (!role || !role.Name) {
-            throw new Error('Role data incomplete');
+            throw new Error('Role not found for RoleId: ' + member.RoleId);
         }
         
-        // Validate role name (database only contains Admin, Editor, Member)
-        const validRoles = ['Admin', 'Editor', 'Member'];
-        const userRole = validRoles.includes(role.Name) ? role.Name : 'Member';
+        const userRole = role.Name;
         
         // Create JWT payload for app_token
         const jwtPayload = {
@@ -176,10 +166,13 @@ async function processCredentials(authToken) {
         
         // Redirect to member profile page immediately
         const redirectUrl = 'member-profile.html';
-        window.location.href = redirectUrl;
+        setTimeout(() => {
+            window.location.href = redirectUrl;
+        }, 2000);
         
     } catch (error) {
         console.error('Error processing credentials:', error);
+        sessionStorage.removeItem('credentials_processing');
         document.querySelector('.message').textContent = 'Error processing credentials. Redirecting to home...';
         setTimeout(() => {
             window.location.href = 'index.html';

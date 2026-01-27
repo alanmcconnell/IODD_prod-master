@@ -290,7 +290,7 @@ class AdminRoles {
             const submitBtn = document.getElementById('submitBtn');
             if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit';
+                submitBtn.textContent = 'Save';
             }
         }
     }

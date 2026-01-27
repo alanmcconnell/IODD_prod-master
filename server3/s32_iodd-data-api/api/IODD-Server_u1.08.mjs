@@ -669,7 +669,7 @@ this.Login_postRoute = function( ) {    // Send back JSON if found, otherwise se
            }
            
            const appTokenPayload = {
-               user_id: mRecs1[0].MemberNo,
+               user_no: mRecs1[0].MemberNo,
                user_name: `${mRecs1[0].FirstName || ''} ${mRecs1[0].LastName || ''}`.trim(),
                user_email: mRecs1[0].Email,
                user_role: roleName
@@ -836,12 +836,27 @@ this.PKCEAuth_getRoute = async function() {
     pApp.get(`${global.aAPI_Host}/test/user`, testUserHandler);
     pApp.get(`${global.aAPI_Host}/debug/token`, debugTokenHandler);
     pApp.get(`${global.aAPI_Host}/test/login`, createTestTokenHandler);
-    pApp.get(`${global.aAPI_Host}/list/members`, listMembersHandler);
+    pApp.get(`${global.aAPI_Host}/list/members`, async (req, res) => {
+        req.pDB = pDB;
+        await listMembersHandler(req, res);
+    });
     pApp.get(`${global.aAPI_Host}/fix/token`, fixTokenHandler);
-    pApp.get(`${global.aAPI_Host}/webpage_roles_view`, webpageRolesViewHandler);
-    pApp.get(`${global.aAPI_Host}/roles`, rolesHandler);
-    pApp.post(`${global.aAPI_Host}/role`, rolesHandler);
-    pApp.delete(`${global.aAPI_Host}/role`, rolesHandler);
+    pApp.get(`${global.aAPI_Host}/webpage_roles_view`, async (req, res) => {
+        req.pDB = pDB;
+        await webpageRolesViewHandler(req, res);
+    });
+    pApp.get(`${global.aAPI_Host}/roles`, async (req, res) => {
+        req.pDB = pDB;
+        await rolesHandler(req, res);
+    });
+    pApp.post(`${global.aAPI_Host}/role`, async (req, res) => {
+        req.pDB = pDB;
+        await rolesHandler(req, res);
+    });
+    pApp.delete(`${global.aAPI_Host}/role`, async (req, res) => {
+        req.pDB = pDB;
+        await rolesHandler(req, res);
+    });
     pApp.get(`${global.aAPI_Host}/role-usage`, roleUsageHandler);
     pApp.get(`${global.aAPI_Host}/member-resume`, async (req, res) => {
         req.pDB = pDB;
@@ -1336,7 +1351,7 @@ this.WebpageProjectMembers_getRoute = function( ) {
 
 this.MembersProjects_getRoute = function( ) {
 
-            setRoute( pApp, 'get', '/members_projects', JSON_getRoute_Handler, `SELECT * FROM members_projects_view` )
+            setRoute( pApp, 'get', '/members_projects', JSON_getRoute_Handler, `SELECT * FROM members_projects` )
 
          }; // eof MembersProjects_getRoute
 //--------  ------------------  =  --------------------------------- ------------------
@@ -1681,7 +1696,8 @@ function  fmtSQL1( pForm ) {
                          ,  Duration   = '${ pForm.duration      }'
                          ,  Role       = '${ pForm.role         }'
                          ,  Dates      = '${ pForm.dates        }'
-                     WHERE  Id         =  ${ pForm.mpid         }
+                     WHERE  ProjectID  =  ${ pForm.pid         }
+                       AND  MemberNo   =  ${ pForm.mid         }
                      `
     return  aSQL
             }

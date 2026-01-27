@@ -24,7 +24,7 @@ module.exports = {
     {
       name: 'iodd-c54132',
       script: 'npx',
-      args: 'http-server -c-1 -p 54132',
+      args: 'http-server -c-1 -p 54132 --cors',
       cwd: '/webs/iodd/client3/c32_iodd-app',
       instances: 1,
       exec_mode: 'fork',

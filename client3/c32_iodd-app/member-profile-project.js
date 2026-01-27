@@ -192,7 +192,7 @@ class MemberProfileProject {
     async loadProjectDetails(projectId) {
         try {
             console.log('Loading project details for ID:', projectId);
-            const response = await fetch(`${window..SERVER_API_URL}/project?pid=${projectId}`, {       // .(51013.01.25)
+            const response = await fetch(`${window.FVARS.SERVER_API_URL}/project?pid=${projectId}`, {       // .(51013.01.25)
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -397,7 +397,7 @@ class MemberProfileProject {
         } finally {
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit';
+            submitBtn.textContent = 'Save';
         }
     }
 

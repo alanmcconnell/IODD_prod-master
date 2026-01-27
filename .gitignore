@@ -1,6 +1,7 @@
 .env
 _config.js
 _config.yaml.js
+ecosystem.*
 .amazonq*
 archive
 logs

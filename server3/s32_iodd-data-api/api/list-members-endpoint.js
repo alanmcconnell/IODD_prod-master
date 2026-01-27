@@ -3,23 +3,19 @@
  * Lists all active members in the database
  */
 
-import mysql from 'mysql2/promise';
-
 async function listMembersHandler(req, res) {
     try {
-        // Create database connection
-        const pool = mysql.createPool({
-            host: process.env.DB_Host,
-            user: process.env.DB_User,
-            password: process.env.DB_Password,
-            database: process.env.DB_Database,
-            waitForConnections: true,
-            connectionLimit: 10,
-            queueLimit: 0
-        });
+        const db = req.pDB;
+        
+        if (!db) {
+            return res.status(500).json({
+                success: false,
+                message: 'Database connection not available'
+            });
+        }
         
         // Get all active members
-        const [rows] = await pool.execute(
+        const [rows] = await db.execute(
             'SELECT MemberNo, FirstName, LastName, Email FROM members WHERE Active = "Y" ORDER BY FirstName, LastName'
         );
         

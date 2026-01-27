@@ -331,10 +331,8 @@
                 <a href="contact-email.html">Contact</a>
             </div>
             <div class="nav-buttons">
-<!--            <button class="btn" onclick="window.location.href='http://localhost:3005/login_client.html?redirect_url=' + encodeURIComponent('http://localhost:5505/client3/c32_iodd-app/member-profile.html') + '&failure_url=' + encodeURIComponent('http://localhost:5505/client3/c32_iodd-app/index.html')">Login</button> --><!--#.(51013.01.2) --> 
-                <button id="loginBtn" class="btn">Login</button>                      <!-- .(51013.06.1 RAM No onclick) -->
+                <button id="loginBtn" class="btn">Login</button>
                 <button class="btn" onclick="window.location.href='register.html'">Register</button>
- <!--           <button class="btn" onclick="window.location.href='iodd-chat-line.html'">IODD AI Chat</button>      -->
             </div>
         </nav>
     </header>
@@ -351,6 +349,7 @@
     </footer>
 
     <script src="_config.js"></script>                                                <!-- .(51013.01.2 RAM New config) -->
+    <script src="lib/JWT-Tokens-Client.js"></script>
     <script src="lib/global-token-functions.js"></script>
     <script src="lib/acm_Prompts.js"></script>
     <script src="footer-content.js"></script>
@@ -365,7 +364,17 @@
 
         document.addEventListener('DOMContentLoaded', function() {                      // .(51013.06.2 RAM Moved from toip of <body> Beg)
             
+            // Check for app_token and enable Members Section button
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+            
+            
             document.getElementById('loginBtn').addEventListener('click', function() {
+                // Clear credentials processing flag
+                sessionStorage.removeItem('credentials_processing');
                 // Store app_key in localStorage for SecureAccess app to read
                 localStorage.setItem('app_key', SECURE_APP_KEY);
                 localStorage.setItem('redirect_url', LOGIN_SUCCESS);

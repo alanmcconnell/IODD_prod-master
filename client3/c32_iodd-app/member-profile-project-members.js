@@ -198,8 +198,38 @@ async function loadProjectMembers(projectId) {
         
         // Filter members by ProjectID
         members = projectMembers.filter(member => member.ProjectID == projectId);
+        
+        // Fetch the actual database IDs for each member by querying the table directly
+        for (let member of members) {
+            try {
+                // Query members_projects table directly with ProjectID and MemberNo
+                const idResponse = await fetch(`${API_BASE_URL}/members_projects`, {
+                    credentials: 'include'
+                });
+                if (idResponse.ok) {
+                    const idData = await idResponse.json();
+                    const allRecords = idData.members_projects || [];
+                    const matchingRecord = allRecords.find(r => 
+                        (r.ProjectID == projectId || r.ProjectId == projectId) && r.MemberNo == member.MemberNo
+                    );
+                    if (matchingRecord) {
+                        member.Id = matchingRecord.Id;
+                        member.Role = matchingRecord.Role || member.Role;
+                        member.Duration = matchingRecord.Duration || member.Duration;
+                        member.Dates = matchingRecord.Dates || member.Dates;
+                    } else {
+                        member.Id = 0;
+                    }
+                } else {
+                    member.Id = 0;
+                }
+            } catch (err) {
+                console.error('Error fetching member ID:', err);
+                member.Id = 0;
+            }
+        }
+        
         displayMembers();
-        // Enable submit button when members are loaded
         submitBtn.disabled = false;
         hideMessage();
         
@@ -427,23 +457,16 @@ async function handleSubmit() {
         return;
     }
     
-    console.log('Starting submit with members:', members);
-    
     try {
         showMessage('Saving changes...', 'loading');
         
         for (const member of members) {
-            // Convert Id to number for proper comparison
             const memberId = parseInt(member.Id) || 0;
             
-            console.log(`Processing member with Id: ${memberId}`, member);
-            
-            if (memberId === 0) {
-                console.log('Calling insertMemberProject');
-                await insertMemberProject(member);
-            } else {
-                console.log('Calling updateMemberProject');
+            if (memberId > 0) {
                 await updateMemberProject(member);
+            } else {
+                await insertMemberProject(member);
             }
         }
         
@@ -459,17 +482,10 @@ async function handleSubmit() {
 
 // Insert new member project record
 async function insertMemberProject(member) {
-    console.log('Attempting to insert member:', member);
-    
-    // Skip insert if no member is selected
     if (!member.MemberNo || member.MemberNo === '') {
-        console.log('Skipping insert - no member selected, MemberNo:', member.MemberNo);
         return 'Skipped - no member selected';
     }
     
-    console.log(`Inserting member ${member.MemberNo} into project ${selectedProjectId}`);
-    
-    // First, insert the basic record
     const insertResponse = await fetch(`${API_BASE_URL}/project_collaborators?action=insert&pid=${selectedProjectId}&mid=${member.MemberNo}`, {
         method: 'GET',
         credentials: 'include'
@@ -481,28 +497,29 @@ async function insertMemberProject(member) {
     }
     
     const insertResult = await insertResponse.text();
-    console.log('Insert result:', insertResult);
     
-    // If Role, Duration, or Dates are provided, update them
+    if (insertResult.includes('error') || insertResult.includes('Duplicate')) {
+        await updateMemberProject({
+            ProjectID: selectedProjectId,
+            MemberNo: member.MemberNo,
+            Role: member.Role || '',
+            Duration: member.Duration || '',
+            Dates: member.Dates || ''
+        });
+        return 'Updated existing record';
+    }
+    
     if (member.Role || member.Duration || member.Dates) {
-        console.log('Updating Role, Duration, and Dates for new record');
-        
-        // We need to get the new record ID to update it
-        // Reload the project members to get the new record with its ID
         await loadProjectMembers(selectedProjectId);
-        
-        // Find the newly inserted record (it should be the one with matching MemberNo)
         const newRecord = members.find(m => m.MemberNo == member.MemberNo && m.ProjectID == selectedProjectId);
         if (newRecord && newRecord.Id) {
-            // Update the new record with Role, Duration, and Dates
-            const updateMember = {
+            await updateMemberProject({
                 Id: newRecord.Id,
                 MemberNo: member.MemberNo,
                 Role: member.Role || '',
                 Duration: member.Duration || '',
                 Dates: member.Dates || ''
-            };
-            await updateMemberProject(updateMember);
+            });
         }
     }
     
@@ -512,11 +529,12 @@ async function insertMemberProject(member) {
 // Update existing member project record using POST
 async function updateMemberProject(member) {
     const formData = new URLSearchParams();
-    formData.append('mpid', member.Id);
+    formData.append('pid', member.ProjectID || selectedProjectId);
     formData.append('mid', member.MemberNo || '');
     formData.append('role', member.Role || '');
     formData.append('duration', member.Duration || '');
     formData.append('dates', member.Dates || '');
+    formData.append('mpid', member.Id || 1);
     
     const response = await fetch(`${API_BASE_URL}/project_collaborators`, {
         method: 'POST',
